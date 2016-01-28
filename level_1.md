@@ -33,10 +33,9 @@ need. This probably won't work if we want to analyze a lot of data -- it'll take
 forever! Automating this process, though, should significantly cut down on the amount 
 of time we'll need to spend on data aggregation. 
 
-We'll collect the data through a process called **web scraping**. It turns out 
-that a lot of important and valuable information is contained within webpages. We 
-can programatically find the data we're looking for and extract precisely the 
-information we need.
+We'll collect the data through a process called **web scraping**. A lot of valuable 
+information is contained within webpages, so we can programatically find the data we're
+ looking for and extract precisely the information we need.
 
 Let's start by looking at a sample webpage:
 
