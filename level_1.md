@@ -1,15 +1,15 @@
 
 # Data Science Curriculum
 
-In this curriculum, we'll be exploring how to build a data science project. Our end goal is a simple interactive graphic that is able to predict how much precipitation we will receive on a certain day given some information about the rest of the weather (temperature, humidity, etc.) on that day. Along the way, we'll see how to scrape, model, and visualize data; we'll be using Python for this project. Let's get started!
+In this curriculum, we'll be exploring how to build a data science project. Our end goal is a simple interactive graphic that predicts how much precipitation we'll receive on a certain day given other weather conditions (temperature, humidity, etc.) on that day. Along the way we'll see how to scrape, model, and visualize data, and we'll be using Python for this project. Let's get started!
 
 # Level 1: Scraping Data
 
-In this level, we'll be obtaining the data that we hope to analyze later; this is an often overlooked part of data science, but it is crucial because errors in obtaining the data can cause problems for further analysis.
+In this level, we'll be obtaining the data to analyze later. This is an often overlooked part of data science, but it's *crucial* because errors in obtaining the data can cause problems for further analysis.
 
-Data can come in many different forms and originate from many sources; for example, you could imagine collecting the 5 most recent posts all of your friends on Facebook have made. Each of these posts would be considered as one data point; we can observe different things about these data (continuing the Facebook example, the number of words in the post, whether the post contains a photo, what time it was posted, etc.), and these are called *variables*. Often times, we want to observe something about a data point given certain information about the data point; in the Facebook example, we could try to predict whether there is a photo in the post based on other information about the post.
+Data originates from many sources and takes on a variety of forms. For example, imagine collecting the 5 most recent posts made by all of your Facebook friends. Each of these posts would then be considered as one data point. We can observe different things about these data (the number of words in the post, whether the post contains a photo, what time it was posted, etc.), and these observables are called *variables*. Oftentimes we want to observe something about a data point given certain information about it -- in the Facebook example, we could try using other information about a specific post to predict whether the post also includes a photo.
 
-For this project, we'll be analyzing data from [Wunderground](http://www.wunderground.com/); this is a website that contains information about the weather. What we'll want to do is assemble a dataset of weather over the past couple of years to see if we can predict the amount of precipitation on a certain day based on other information about that day. 
+For this project, we'll be analyzing data from [Wunderground](http://www.wunderground.com/), a website that contains information about the weather. We'll first want to aggregate weather datasets over the past couple of years to see if we can predict the amount of precipitation on a certain day based on other information about that day. 
 
 This brings us to our first important lesson: *obtaining the data must be scalable*. Let's think about how we can assemble such a dataset; one way is to navigate the site ourselves for each day we want to analyze while recording the variables we wish to analyze. Unfortunately, this won't work if we want to analyze a lot of data because it'll take a long time to collect all of the data needed. We're lucky because we can in fact automate the collection of this data, meaning it'll take much less time.
 
