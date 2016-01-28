@@ -1,29 +1,58 @@
 
 # Data Science Curriculum
 
-In this curriculum, we'll be exploring how to build a data science project. Our end goal is a simple interactive graphic that predicts how much precipitation we'll receive on a certain day given other weather conditions (temperature, humidity, etc.) on that day. Along the way we'll see how to scrape, model, and visualize data, and we'll be using Python for this project. Let's get started!
+In this curriculum, we'll explore how to build a data science project in Python. Our end 
+goal is a simple interactive graphic that predicts how much precipitation we'll receive
+ on a certain day given other weather conditions (temperature, humidity, etc.) for that
+  day. Along the way we'll see how to scrape, model, and visualize data. Let's get started!
 
 # Level 1: Scraping Data
 
-In this level, we'll be obtaining the data to analyze later. This is an often overlooked part of data science, but it's *crucial* because errors in obtaining the data can cause problems for further analysis.
+In this level, we'll obtain the data to analyze for our project. This is an often 
+overlooked part of data science, but it's crucial because errors in data collection 
+can cause problems for further analysis.
 
-Data originate from many sources and take on a variety of forms. For example, imagine collecting the 5 most recent posts made by all of your Facebook friends. Each of these posts would then be considered as one data point. We can observe different things about these data (the number of words in the post, whether the post contains a photo, what time it was posted, etc.), and these observables are called *variables*. Oftentimes we want to observe something about a data point given certain information about it -- in the Facebook example, we could try using other information about a specific post to predict whether the post also includes a photo.
+Data originate from many sources and take on a variety of forms. For example, imagine 
+collecting the 5 most recent posts made by all of your Facebook friends. Each of these 
+posts would then be considered as one data point. We can observe different things about
+ these data (the number of words in the post, whether the post contains a photo, what 
+ time it was posted, etc.), and these observables are called *variables*. Oftentimes we
+  want to observe something about a data point given certain information about it -- in
+   the Facebook example, we could try using other information about a specific post to 
+   predict whether the post also includes a photo.
 
-For this project, we'll be analyzing data from [Wunderground](http://www.wunderground.com/), a website that contains information about the weather. We'll first want to aggregate weather datasets over the past couple of years to see if we can predict the amount of precipitation on a certain day based on other information about that day. 
+For this project, we'll analyze data from [Wunderground](http://www.wunderground
+.com/), a website that contains information about the weather. We'll first want to 
+aggregate weather datasets over the past couple of years to see if we can
+predict the amount of precipitation on a certain day. 
 
-This brings us to our first important lesson: *obtaining the data must be scalable*. Let's think about how we can assemble such a dataset; one way is to navigate the site ourselves for each day we want to analyze while recording the variables we wish to analyze. Unfortunately, this won't work if we want to analyze a lot of data because it'll take a long time to collect all of the data needed. We're lucky because we can in fact automate the collection of this data, meaning it'll take much less time.
+This brings us to our first important lesson: *obtaining the data must be scalable*. 
+Let's think about how we can assemble such a dataset: one way is to navigate the site 
+ourselves for each day of interest while keeping track of all the variables we 
+need. This probably won't work if we want to analyze a lot of data -- it'll take 
+forever! Automating this process, though, should significantly cut down on the amount 
+of time we'll need to spend on data aggregation. 
 
-The way we'll collect the data is by a process called **web scraping**. It turns out that a lot of important and valuable information is just located on webpages. We can programatically find the data we're looking for and then extract exactly the information we want.
+We'll collect the data through a process called **web scraping**. It turns out 
+that a lot of important and valuable information is contained within webpages. We 
+can programatically find the data we're looking for and extract precisely the 
+information we need.
 
-To start collecting our data, let's look at a sample webpage that we may extract information from:
+Let's start by looking at a sample webpage:
 
 ![Wunderground Screenshot](wunderground.png)
 
-This webpage come from the following link: "http://www.wunderground.com/history/airport/KNYC/2016/1/1/DailyHistory.html". It looks like this page organizes the information well, which is good for us! It clearly denotes where the temperature for the day is located. Let's dig into this a little more by exploring how the webpage is presenting this information.
+This webpage come from the following link: "http://www.wunderground
+.com/history/airport/KNYC/2016/1/1/DailyHistory.html". It looks like the information 
+here is nicely organized, which is good for us! The website clearly denotes where the 
+temperature for the day is located. Let's dig a little deeper by exploring how the 
+information is presented on the website.
 
 ![Inspect Screenshot](inspect.png)
 
-Let's right click on the 38$^\circ$, and then press "Inspect". This will allow us to look at the actual HTML code that generated the webpage we're looking at. We can then right click where it says tbody and press "Edit as HTML".
+Let's right-click on the 38$^\circ$, and then press "Inspect". This will allow us to 
+look at the actual HTML code that generated the webpage we're looking at. We can then 
+right-click where it says tbody and press "Edit as HTML".
 
 ![Edit as HTML Screenshot](edit-as-html.png)
 
@@ -58,9 +87,21 @@ This should show you the code of this table, and the first lines should look lik
 		</tr>
 ```
 
-Here, we're seeing exactly how the information is being presented to the browser. At this level, it may be a little tough to see, but essentially, each row of the table (starts with `<tr>` and ends with `</tr>` has more information about the day that we may be interested in.) This organization means that we can write a program that will extract the data we want. Awesome!
+Here we're seeing exactly how the information is being presented to the browser. It may
+ be a little tough to see at this level, but each row of the table (starts 
+ with `<tr>` and ends with `</tr>`) has tell us more about the day that we may be 
+ interested in. This means that we can write a program that will extract 
+ the data we want. Awesome!
 
-Now, let's think more about what scope of data we want; we probably want at least a couple of years' worth of data. Let's say that we're interested in data between January 1, 2013 and December 31, 2015. Now, we just need to write code that will allow us to get all of the links to the data we want. If you remember from above, the link was "http://www.wunderground.com/history/airport/KNYC/2016/1/1/DailyHistory.html" for January 1<sup>st</sup>, 2016. Thus, it seems likely that we only need to substitute the year, month, and day that we want data for, which is convenient. Let's get into some Python code.
+Now let's think about the scope of this project -- we probably want at least a 
+couple of years' worth of data for meaningful analyses. Let's say that we're 
+interested in data between January 1, 2013 and December 31, 2015. Now, we just need to 
+write code that'll allow us to get all the links to the data we want. If you remember 
+from before, the link was 
+ "http://www.wunderground.com/history/airport/KNYC/2016/1/1/DailyHistory.html" for 
+ January 1<sup>st</sup>, 2016. So it seems likely that we only need to substitute the 
+ year, month, and day that we want data for, which is super convenient. Let's get into 
+ some Python code.
 
 
     list_of_links = []
@@ -91,7 +132,10 @@ Now, let's think more about what scope of data we want; we probably want at leas
     http://www.wunderground.com/history/airport/KNYC/2013/1/5/DailyHistory.html
 
 
-It looks like our code is working! As a sanity check, 365 * 3 = 1095, which means we have the expected number of links. Let's start by downloading all of these webpages to our computer to make the process of extracting the information later on. We'll be using the `requests` package to download the webpage.
+It looks like our code is working! As a sanity check, 365 * 3 = 1095, which means we 
+have the expected number of links. Let's start by downloading all of these webpages to 
+our computer so that we can extract the information later on. We'll be using the 
+`requests` package to download the webpage.
 
 (Note: this will take a while, and that's okay. Shouldn't be more than 10 or so minutes!)
 
@@ -135,7 +179,8 @@ It looks like our code is working! As a sanity check, 365 * 3 = 1095, which mean
     Done with 1050..
 
 
-Great, now we have all the data stored locally on our computer! This was done so that analyzing it won't take as much time since all the data is local rather than on the webpage.
+Great, now we have all the data stored locally on our computer! Analyzing the data 
+locally will take much less time than calling it from the webpage.
 
 Let's try exploring one of the HTML pages using Beautiful Soup.
 
@@ -146,7 +191,8 @@ Let's try exploring one of the HTML pages using Beautiful Soup.
     soup = BeautifulSoup(first.read(), "html.parser")
     first.close()
 
-Using Beautiful Soup, we can look for particular things on different pages. For example, we can look for the links (`a` tags) on the page.
+Using Beautiful Soup, we can look for particular things on different pages. For 
+example, we can look for the links (`a` tags) on the page.
 
 
     all_as = soup.find_all('a')
@@ -178,7 +224,8 @@ Using Beautiful Soup, we can look for particular things on different pages. For 
     ----------------------------------------------------------------------------------------------------
 
 
-For the specific data we're looking for, it's all inside of a `table` with `historyTable` as the id. We can also search by id with BeautifulSoup.
+For the specific data we're looking for, it's all inside of a `table` with 
+`historyTable` as the id. We can also search by id with BeautifulSoup.
 
 
     main_table = soup.find(id = 'historyTable')
@@ -222,9 +269,11 @@ Now we can look for `tr`'s within this table specifically.
     ----------------------------------------------------------------------------------------------------
 
 
-Once we have an actual row, there's lots of information we can extract. Let's try it with one of the rows.
+Once we have an actual row, there's lots of information we can extract. Let's try it 
+with one of the rows.
 
-(We're only interested in the first two cells because those are the row name and value on that day.)
+(We're only interested in the first two cells because those are the row name and value 
+on that day.)
 
 
     row = rows[2]
@@ -255,7 +304,8 @@ Once we have an actual row, there's lots of information we can extract. Let's tr
     Mean Temperature: 33 °F
 
 
-Wonderful! Let's write some code that can do this for all of the rows in the table we had above. 
+Wonderful! Let's write some code that can do this for all of the rows in the table we 
+had above. 
 
 
     def process_row(row):
@@ -297,7 +347,11 @@ Wonderful! Let's write some code that can do this for all of the rows in the tab
     Events: 
 
 
-Whoa! We now have tangible data for January 1<sup>st</sup>. To make things simpler, let's use the 'Mean Temperature', 'Max Temperature', 'Min Temperature', 'Dew Point', 'Average Humidity', 'Maximum Humidity', 'Minimum Humidity', 'Precipitation', 'Wind Speed', 'Max Wind Speed', and 'Max Gust Speed' variables (also known as fields) from here out. Let's write a function that can scrape one HTML file given its name.
+Whoa! We now have tangible data for January 1<sup>st</sup>. For simplicity, let's
+ use the 'Mean Temperature', 'Max Temperature', 'Min Temperature', 'Dew Point', 
+ 'Average Humidity', 'Maximum Humidity', 'Minimum Humidity', 'Precipitation', 'Wind 
+ Speed', 'Max Wind Speed', and 'Max Gust Speed' variables (also known as fields) from 
+ here out. We can write a function that can scrape one HTML file given its name.
 
 
     fields = ['Mean Temperature', 'Max Temperature', 'Min Temperature',\
@@ -338,7 +392,10 @@ Whoa! We now have tangible data for January 1<sup>st</sup>. To make things simpl
 
 
 
-Woo, we're making progress! Now that we can extract the data we want from any general HTML, it isn't too much more work to put together all of the data. We'll be storing all of this data in a special type of file called a *Comma Separated Values* (CSV) file; this just means a file that looks something like this:
+Woo, we're making progress! Now that we can extract the data we want from any general 
+HTML, it isn't too much more work to put together all of the data. We'll be storing all
+ of this data in a special type of file called a *Comma Separated Values* (CSV) file. A
+  CSV file looks something like this:
 
 ```
 A,B,C
@@ -346,14 +403,15 @@ A,B,C
 5,10,15
 ```
 
-It is essentially equivalent to a spreadsheet that is like this:
+It's essentially the same as a spreadsheet that looks like this:
 
 |  A  |  B  |  C  |
 | :-: | :-: | :-: |
 |  1  |  2  |  3  |
 |  5  | 10  | 15  |
 
-The useful thing about CSV files is that it is an extremely common data format that data science tools utilize. Let's get started on writing out our CSV file!
+CSV files are one of the most commonly-used data formats by data science tools 
+today. Let's get started writing out our CSV file!
 
 
     csv_file = open('weather_data.csv', 'w')
@@ -362,7 +420,9 @@ The useful thing about CSV files is that it is an extremely common data format t
     csv_file.write('\n')
     csv_file.close()
 
-The above code writes out the headers for the CSV file; now, we have to write out the data for each day we scraped. If we use our `scrape_file` function, it won't be too difficult.
+The above code writes out the headers for the CSV file. Now we have to write out the 
+data for each day we scraped, but this won't be too difficult if we use our `scrape_file` 
+function.
 
 
     def link_to_date(l):
@@ -407,4 +467,7 @@ The above code writes out the headers for the CSV file; now, we have to write ou
     Done with 1050..
 
 
-The above code will probably take a couple of minutes to run, but once it's done, you've successfully scraped the Wunderground website for daily weather data from 2013 to 2015! Feel free to open your CSV file in your spreadsheet program of choice and check out your awesome accomplishment.
+The above code will probably take a couple of minutes to run. But once it's done, 
+you'll have successfully scraped the Wunderground website for daily weather data from 
+2013 to 2015! Feel free to open your CSV file in your spreadsheet program of choice and
+ check out your awesome accomplishment.
