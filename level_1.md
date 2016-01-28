@@ -42,8 +42,7 @@ Let's start by looking at a sample webpage:
 
 ![Wunderground Screenshot](wunderground.png)
 
-This webpage come from the following link: "http://www.wunderground
-.com/history/airport/KNYC/2016/1/1/DailyHistory.html". It looks like the information 
+This webpage come from the following link: "http://www.wunderground.com/history/airport/KNYC/2016/1/1/DailyHistory.html". It looks like the information 
 here is nicely organized, which is good for us! The website clearly denotes where the 
 temperature for the day is located. Let's dig a little deeper by exploring how the 
 information is presented on the website.
