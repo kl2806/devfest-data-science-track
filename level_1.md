@@ -23,7 +23,7 @@ posts would then be considered as one data point. We can observe different thing
 
 For this project, we'll analyze data from [Wunderground](http://www.wunderground
 .com/), a website that contains information about the weather. Let's aggregate weather 
-datasets over the past couple of years to see if we can predict the amount of 
+datasets over the past couple years to see if we can predict the amount of 
 precipitation on a certain day. 
 
 This brings us to our first important lesson: *obtaining the data must be scalable*. 
