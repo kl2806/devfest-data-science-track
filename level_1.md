@@ -22,9 +22,9 @@ posts would then be considered as one data point. We can observe different thing
    predict whether the post also includes a photo.
 
 For this project, we'll analyze data from [Wunderground](http://www.wunderground
-.com/), a website that contains information about the weather. We'll first want to 
-aggregate weather datasets over the past couple of years to see if we can
-predict the amount of precipitation on a certain day. 
+.com/), a website that contains information about the weather. Let's aggregate weather 
+datasets over the past couple of years to see if we can predict the amount of 
+precipitation on a certain day. 
 
 This brings us to our first important lesson: *obtaining the data must be scalable*. 
 Let's think about how we can assemble such a dataset: one way is to navigate the site 
