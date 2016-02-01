@@ -134,6 +134,8 @@ print(len(links))
 print("\n".join(links[:5]))
 ```
 
+Let's check the output here:
+
     1095
     http://www.wunderground.com/history/airport/KNYC/2013/1/1/DailyHistory.html
     http://www.wunderground.com/history/airport/KNYC/2013/1/2/DailyHistory.html
@@ -188,6 +190,8 @@ for i in range(5):
     print()
 ```
 
+The tags are shown below.
+
     <a href="https://www.wunderground.com/member/registration">
     <i class="fi-torso sidebar-icon"></i> Sign Up / Sign In
       </a>
@@ -219,6 +223,8 @@ for i in range(3):
     print(rows[i])
     print()
 ```
+
+The output is displayed here:
 
     34
     <tr>
@@ -261,6 +267,8 @@ row_value = row.find_all('td')[1].text.strip()
 print(row_name, ":", row_value)
 ```
 
+Finally, we get:
+
     <td class="indent"><span>Mean Temperature</span></td>
     
     <td>
@@ -287,6 +295,7 @@ for row in rows:
         row_value = row.find_all('td')[1].text.strip() 
         print(row_name, ":", row_value)    
 ```
+Shown below are the data that we've found with our code.
 
     Mean Temperature : 33 °F
     Max Temperature : 40 °F
@@ -339,7 +348,7 @@ def scrape_file(name):
 scrape_file("0.html")
 ```
 
-
+Shown below are the values that we've found for the fields!
 
 
     {'Average Humidity': '54',
@@ -738,7 +747,7 @@ Data frames are kind of like dictionaries, where the keys are column names and t
 data["dew_point"]
 ```
 
-
+Here's what we get after we run it.
 
 
     0       22
@@ -759,6 +768,8 @@ These series work just like numpy arrays, supporting all the standard arithmetic
 print(data["dew_point"].mean())
 data["dew_point"] * 5
 ```
+
+Some more output:
 
     40.2630136986
 
@@ -785,6 +796,7 @@ print(len(data))
 print(len(data.columns))
 data.columns
 ```
+Which gives us:
 
     1095
     14
@@ -807,9 +819,7 @@ You can also get both dimensions at once using `.shape`:
 ```python
 data.shape
 ```
-
-
-
+And we get the dimensions we were looking for.
 
     (1095, 14)
 
@@ -822,7 +832,7 @@ You can also get rows of the data frame using the `.iloc` selector. There, the `
 data.iloc[0]
 ```
 
-
+and returns the data that we want.
 
 
     month                1
@@ -834,7 +844,7 @@ data.iloc[0]
     max_gust_speed      26
     Name: 0, dtype: object
 
-
+How about we try a different value?
 
 
 ```python
@@ -842,7 +852,7 @@ data.iloc[:5]
 ```
 
 
-
+We get:
 
 <div>
 <table border="1" class="dataframe">
@@ -1212,7 +1222,7 @@ Now that we know how to explore the data, let's look at some techniques for summ
 data.dtypes
 ```
 
-
+The output is shown below:
 
 
     month              int64
@@ -1233,7 +1243,7 @@ This function seems simple because it just prints out the type of each column; h
 data.precipitation.unique()
 ```
 
-
+Let's see what we get after we run that bit of code.
 
 
     array(['0.00', 'T', '0.55', '0.02', '0.09', '0.12', '0.69', '0.07', '0.22',
@@ -1262,6 +1272,8 @@ clean_data = data.convert_objects(convert_numeric=True)
 print(clean_data.dtypes)
 clean_data.precipitation.unique()
 ```
+
+What does that do?
 
     month               int64
     day                 int64
@@ -1539,7 +1551,7 @@ sns.plt.xlim((30, 60))
 sns.plt.ylim((0, 50))
 ```
 
-
+The code outputs the values of the axes.
 
 
     (0, 50)
@@ -1584,13 +1596,6 @@ sns.plt.ylabel('Precipitation')
 ```
 
 
-
-
-    <matplotlib.text.Text at 0x117425f98>
-
-
-
-
 ![png](../level_2_files/level_2_49_1.png)
 
 
@@ -1602,8 +1607,6 @@ It'd be a hassle to do a scatterplot for every possible variable, but luckily, w
 ```python
 sns.pairplot(clean_data, vars=["mean_temperature", "precipitation", "dew_point", "wind_speed"])
 ```
-    <seaborn.axisgrid.PairGrid at 0x117442dd8>
-
 
 ![png](../level_2_files/level_2_51_2.png)
 
@@ -1643,6 +1646,7 @@ data = pd.read_csv('clean_weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
+Let's remind ourselves again what our data looked like.
 
     Month                 int64
     Day                   int64
@@ -1661,7 +1665,7 @@ data[:5]
     dtype: object
 
 
-
+A close-up view is shown below:
 
 
 <div>
@@ -1798,7 +1802,7 @@ knn_model = KNeighborsRegressor(n_neighbors=3)
 knn_model.fit(X_train, y_train)
 ```
 
-
+Now we run the model.
 
 
     KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
@@ -1823,6 +1827,8 @@ print("KNN loss:", knn_sum_squares)
 print("Variation explained: ", 100 * (1 - knn_sum_squares / mean_sum_squares), "%", sep="")
 ```
 
+The code gives us the values that we're looking for:
+
     Average loss: 29.9691113861
     KNN loss: 27.4045222222
     Variation explained: 8.55744146322%
@@ -1834,6 +1840,8 @@ We call the "variation explained" the coefficient of variation, or $r^2$. This q
 ```python
 print("R^2: ", knn_model.score(X_test, y_test))
 ```
+
+Now, the output:
 
     R^2:  0.0855744146322
 
@@ -1853,7 +1861,7 @@ linear_model = LinearRegression()
 linear_model.fit(X_train, y_train)
 ```
 
-
+Now let's run the linear regression!
 
 
     LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
@@ -1866,6 +1874,8 @@ Yup, KNN wasn't a special case, `sklearn` just makes things that easy. Let's see
 ```python
 print(linear_model.score(X_test, y_test))
 ```
+
+The model score:
 
     0.210857982665
 
@@ -1890,10 +1900,6 @@ sns.plt.xlabel('Real Value')
 sns.plt.ylabel('Prediction')
 plt.show()
 ```
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-      warnings.warn(self.msg_depr % (key, alt_key))
-
 
 
 ![png](../level_3_files/level_3_16_1.png)
@@ -2066,7 +2072,7 @@ Here, ```fit_transform``` does all the work of figuring out what the possible ca
 new_day[0, :]
 ```
 
-
+The output is shown below:
 
 
     array([ 1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,
@@ -2083,6 +2089,7 @@ Now we can combine the one hot encoded features with our original data and split
 X = np.hstack([new_day, data.values[:, 2:]])
 ```
 
+Then we can split our data as we mentioned before.
 
 ```python
 from sklearn.cross_validation import train_test_split
@@ -2107,7 +2114,7 @@ svm.fit(X_train, y_train)
 svm.score(X_test, y_test)
 ```
 
-
+What's our prediction score?
 
 
     0.85643564356435642
@@ -2135,7 +2142,7 @@ search = GridSearchCV(SVC(), param_grid=parameters, refit=True, cv=5)
 search.fit(X_train, y_train)
 ```
 
-
+The output of the gridsearch for the optimal cost parameter is shown below:
 
 
     GridSearchCV(cv=5, error_score='raise',
@@ -2148,7 +2155,7 @@ search.fit(X_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)
 
 
-
+Now let's try plotting the validation error!
 
 ```python
 #plot the validation error
@@ -2166,17 +2173,6 @@ plt.ylabel("Validation Error")
 plt.title("Linear SVM 5-Fold Cross Validation Error")
 ```
 
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-      warnings.warn(self.msg_depr % (key, alt_key))
-
-
-
-
-
-    <matplotlib.text.Text at 0x10dcbe0f0>
-
-
-
 
 ![png](../level_4_files/level_4_20_2.png)
 
@@ -2188,6 +2184,7 @@ We can check what the best parameters are like this.
 search.best_params_
 ```
 
+Our output:
 
 
 
@@ -2202,7 +2199,7 @@ The cool thing about sklearn is that the ```GridSearchCV``` class keeps the best
 search.score(X_test, y_test)
 ```
 
-
+And the score:
 
 
     0.86633663366336633
@@ -2228,7 +2225,7 @@ search = GridSearchCV(SVC(), param_grid=params, refit=True, cv=5)
 search.fit(X_train,y_train)
 ```
 
-
+We run our gridsearch again below:
 
 
     GridSearchCV(cv=5, error_score='raise',
@@ -2241,7 +2238,7 @@ search.fit(X_train,y_train)
            pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)
 
 
-
+And plot the errors:
 
 ```python
 #plot errors
@@ -2257,22 +2254,6 @@ plt.xticks(np.arange(len(params["gamma"])), params["gamma"], rotation=45)
 plt.yticks(np.arange(len(params["C"])),params["C"])
 ```
 
-
-
-
-    ([<matplotlib.axis.YTick at 0x10e630048>,
-      <matplotlib.axis.YTick at 0x10e620208>,
-      <matplotlib.axis.YTick at 0x10e62c7f0>,
-      <matplotlib.axis.YTick at 0x10ddb49e8>,
-      <matplotlib.axis.YTick at 0x10e2ffba8>,
-      <matplotlib.axis.YTick at 0x10dceb4a8>,
-      <matplotlib.axis.YTick at 0x10de3bf98>,
-      <matplotlib.axis.YTick at 0x10b24fcc0>],
-     <a list of 8 Text yticklabel objects>)
-
-
-
-
 ![png](../level_4_files/level_4_29_1.png)
 
 
@@ -2283,6 +2264,8 @@ Again we can check what the best parameters were, and see how our performance on
 print(search.best_params_)
 print(search.score(X_test, y_test))
 ```
+
+Our best parameters are shown here:
 
     {'C': 1.0, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.856435643564
@@ -2310,6 +2293,7 @@ data = pd.read_csv('clean_weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
+Just a sanity check to make sure we have the same dataset as before! This should look familiar.
 
     index                 int64
     month                 int64
@@ -2459,7 +2443,7 @@ import bokeh.io, bokeh.plotting, bokeh.models
 bokeh.io.output_notebook()
 ```
 
-
+The output code is below:
 
 
     <script type="text/javascript">
@@ -2557,7 +2541,7 @@ p.circle(data.mean_temperature, data.dew_point)
 bokeh.plotting.show(p)
 ```
 
-
+What does this do?
 
 
     <div class="plotdiv" id="4e261b12-431c-4a5a-ac91-a6383ddb0278"></div>
@@ -2667,7 +2651,7 @@ q.yaxis.axis_label = 'Dew Point'
 bokeh.plotting.show(q)
 ```
 
-
+The plots are shown below:
 
 
     <div class="plotdiv" id="b0640c28-481f-4ef9-841d-a4514d0b330e"></div>
@@ -2777,7 +2761,7 @@ hist_plot.yaxis.axis_label = "Frequency"
 bokeh.plotting.show(hist_plot)
 ```
 
-
+More plots here:
 
 
     <div class="plotdiv" id="1fff7d3b-ad4c-4f6a-9c0a-be3609b37fc1"></div>
@@ -2867,8 +2851,6 @@ bokeh.plotting.show(hist_plot)
 
 
 
-
-
     <bokeh.io._CommsHandle at 0x10b3adc88>
 
 
@@ -2896,7 +2878,7 @@ bokeh.plotting.show(tabs)
 ```
 
 
-
+And finally:
 
     <div class="plotdiv" id="115037c4-aa77-468e-8502-28648ffbbf00"></div>
 <script type="text/javascript">
@@ -3026,7 +3008,7 @@ layout = bokeh.io.vform(size, plot)
 bokeh.plotting.show(layout)
 ```
 
-
+Here's the output:
 
 
     <div class="plotdiv" id="18acb36a-c7fb-4b65-b0e9-761f0a6278df"></div>
@@ -3151,7 +3133,7 @@ fig.circle('x', 'y', source = tooltip_source)
 show(fig)
 ```
 
-
+We get:
 
 
     <div class="plotdiv" id="0990ac5d-6d26-4edb-b55d-7c0aa355a8d3"></div>
