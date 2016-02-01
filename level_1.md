@@ -1,7 +1,7 @@
 
 # Data Science Track
 
-Welcome to the data science track! :D <br>
+Welcome to the data science track :D <br>
 We'll be exploring some weather data to see if we can predict whether it'll rain, so let's get started!
 
 # Level 0: Environment Setup
