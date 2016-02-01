@@ -1165,9 +1165,6 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
 
-![png](level_2_files/level_2_45_1.png)
-
-
 Whoa, cool plot alert! Let's add a legend to make sure someone looking at the plot knows which histogram is which.
 
 
@@ -1179,9 +1176,6 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 sns.plt.legend()
 ```
-
-![png](level_2_files/level_2_47_1.png)
-
 
 We're getting pretty good at this. Let's try plotting a scatterplot to see the relationship between temperature and precipitation.
 
