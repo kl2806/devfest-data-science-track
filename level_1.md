@@ -15,36 +15,35 @@ can cause problems for further analysis.
 Data originate from many sources and take on a variety of forms. For example, imagine 
 collecting the 5 most recent posts made by all of your Facebook friends. Each of these 
 posts would then be considered as one data point. We can observe different things about
- these data (the number of words in the post, whether the post contains a photo, what 
- time it was posted, etc.), and these observables are called *variables*. Oftentimes we
-  want to observe something about a data point given certain information about it -- in
-   the Facebook example, we could try using other information about a specific post to 
+ these data, e.g. the number of words in the post, whether the post contains a photo, what 
+ time it was posted, etc. These categories of observables are called *variables*. Oftentimes we
+  want to observe something about a data point given certain information about it, and use these observations to predict specific outcomes with a degree of likelihood. In the Facebook example, we could try using other information about a specific post to 
    predict whether the post also includes a photo.
 
 For this project, we'll analyze data from [Wunderground](http://www.wunderground
-.com/), a website that contains information about the weather. Let's aggregate weather 
+.com/), a website that provides weather forecasts. Let's aggregate weather 
 datasets over the past couple years to see if we can predict the amount of 
-precipitation on a certain day. 
+precipitation on a certain day based on other known variables. 
 
-This brings us to our first important lesson: *obtaining the data must be scalable*. 
+This brings us to our first important lesson: *obtaining the data must be scalable*. We use the word *scalable* to mean a system that can be easily expanded to harvest a large amount of data.
 Let's think about how we can assemble such a dataset: one way is to navigate the site 
 ourselves for each day of interest while keeping track of all the variables we 
-need. This probably won't work if we want to analyze a lot of data -- it'll take 
-forever! Automating this process, though, should significantly cut down on the amount 
-of time we'll need to spend on data aggregation. 
+need and recording them. This probably won't work if we want to analyze a lot of data -- it'll take 
+forever to copy everything down! Automating this process should significantly cut down on the amount 
+of time we'll need to spend on data collection. 
 
 We'll collect the data through a process called **web scraping**. A lot of valuable 
-information is contained within webpages, so we can programatically find the data we're
+information is stored within webpages, so we can programatically find the data we're
  looking for and extract precisely the information we need.
 
-Let's start by looking at a sample webpage:
+Let's start by looking at a sample webpage from Wunderground:
 
 ![Wunderground Screenshot](wunderground.png)
 
-This webpage come from the following link: "http://www.wunderground.com/history/airport/KNYC/2016/1/1/DailyHistory.html". It looks like the information 
-here is nicely organized, which is good for us! The website clearly denotes where the 
+This webpage comes from the following link: "http://www.wunderground.com/history/airport/KNYC/2016/1/1/DailyHistory.html". It looks like the information 
+here is nicely organized, which means less work for us! The website clearly denotes where the 
 temperature for the day is located. Let's dig a little deeper by exploring how the 
-information is presented on the website.
+information is presented on the website by exploring the HTML code used. 
 
 ![Inspect Screenshot](inspect.png)
 
@@ -86,15 +85,15 @@ This should show you the code of this table, and the first lines should look lik
 ```
 
 Here we're seeing exactly how the information is being presented to the browser. It may
- be a little tough to see at this level, but each row of the table (starts 
- with `<tr>` and ends with `</tr>`) has tell us more about the day that we may be 
+ be a little tough to see at this level, but each row of the table (a table starts 
+ with `<tr>` and ends with `</tr>`) can tell us more about the day that we may be 
  interested in. This means that we can write a program that will extract 
  the data we want. Awesome!
 
 Now let's think about the scope of this project -- we probably want at least a 
-couple of years' worth of data for meaningful analyses. Let's say that we're 
+couple of years' worth of data for meaningful analyses to predict outcomes accurately. Let's say that we're 
 interested in data between January 1, 2013 and December 31, 2015. Now, we just need to 
-write code that'll allow us to get all the links to the data we want. If you remember 
+write code that will allow us to get all the links to the data we want. If you remember 
 from before, the link was 
  "http://www.wunderground.com/history/airport/KNYC/2016/1/1/DailyHistory.html" for 
  January 1<sup>st</sup>, 2016. So it seems likely that we only need to substitute the 
@@ -130,8 +129,8 @@ from before, the link was
     http://www.wunderground.com/history/airport/KNYC/2013/1/5/DailyHistory.html
 
 
-It looks like our code is working! As a sanity check, 365 * 3 = 1095, which means we 
-have the expected number of links. Let's start by downloading all of these webpages to 
+It looks like our code is working! For a quick refernce, 365 * 3 = 1095, which means we 
+have the expected number of links to scrape from. Let's start by downloading all of these webpages to 
 our computer so that we can extract the information later on. We'll be using the 
 `requests` package to download the webpage.
 
@@ -409,7 +408,7 @@ It's essentially the same as a spreadsheet that looks like this:
 |  5  | 10  | 15  |
 
 CSV files are one of the most commonly-used data formats by data science tools 
-today. Let's get started writing out our CSV file!
+today and we can easily access data contained within a CSV file from Python. Let's get started writing out our CSV file!
 
 
     csv_file = open('weather_data.csv', 'w')
@@ -418,7 +417,7 @@ today. Let's get started writing out our CSV file!
     csv_file.write('\n')
     csv_file.close()
 
-The above code writes out the headers for the CSV file. Now we have to write out the 
+The above lines of code writes out the headers for the CSV file. Now we have to write out the 
 data for each day we scraped, but this won't be too difficult if we use our `scrape_file` 
 function.
 
