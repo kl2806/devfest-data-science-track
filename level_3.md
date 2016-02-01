@@ -207,9 +207,9 @@ print("KNN loss:", knn_sum_squares)
 print("Variation explained: ", 100 * (1 - knn_sum_squares / mean_sum_squares), "%", sep="")
 ```
 
-    Average loss: 53.8151391089
-    KNN loss: 45.3789888889
-    Variation explained: 15.6761654057%
+    Average loss: 29.9691113861
+    KNN loss: 27.4045222222
+    Variation explained: 8.55744146322%
 
 
 We call the "variation explained" the coefficient of variation, or $r^2$. This quantity tells us how much variation, or interesting information in your data, your model explains in a meaningful way using the relationship between its input and output variables. You can also use the `score` function to automatically calculate this $r^2$.
@@ -219,7 +219,7 @@ We call the "variation explained" the coefficient of variation, or $r^2$. This q
 print("R^2: ", knn_model.score(X_test, y_test))
 ```
 
-    R^2:  0.156761654057
+    R^2:  0.0855744146322
 
 
 Cool, we managed to fit and analyze our first model! Let's move on to linear regression.
@@ -251,7 +251,7 @@ Yup, KNN wasn't a special case, `sklearn` just makes things that easy. Let's see
 print(linear_model.score(X_test, y_test))
 ```
 
-    0.207990280343
+    0.210857982665
 
 
 As it turns out, linear regression did better than the KNN algorithm. One of the key ideas in data science is that you have to explore which models are best to use with your data. For fun, let's see how the two models compare by plotting the true value and the predicted value.

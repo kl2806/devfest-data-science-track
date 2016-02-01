@@ -202,7 +202,7 @@ svm.score(X_test, y_test)
 
 
 
-    0.82673267326732669
+    0.85643564356435642
 
 
 
@@ -236,7 +236,7 @@ search.fit(X_train, y_train)
       max_iter=-1, probability=False, random_state=None, shrinking=True,
       tol=0.001, verbose=False),
            fit_params={}, iid=True, n_jobs=1,
-           param_grid={'C': [1e-05, 0.0001, 0.001, 0.01, 0.1, 1, 10], 'kernel': ['linear']},
+           param_grid={'kernel': ['linear'], 'C': [1e-05, 0.0001, 0.001, 0.01, 0.1, 1, 10]},
            pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)
 
 
@@ -265,7 +265,7 @@ plt.title("Linear SVM 5-Fold Cross Validation Error")
 
 
 
-    <matplotlib.text.Text at 0x118042b00>
+    <matplotlib.text.Text at 0x10dcbe0f0>
 
 
 
@@ -283,7 +283,7 @@ search.best_params_
 
 
 
-    {'C': 0.01, 'kernel': 'linear'}
+    {'C': 0.0001, 'kernel': 'linear'}
 
 
 
@@ -329,7 +329,7 @@ search.fit(X_train,y_train)
       max_iter=-1, probability=False, random_state=None, shrinking=True,
       tol=0.001, verbose=False),
            fit_params={}, iid=True, n_jobs=1,
-           param_grid={'C': [0.10000000000000001, 0.31622776601683794, 1.0, 3.1622776601683795, 10.0, 31.622776601683793, 100.0, 316.22776601683796], 'gamma': [1e-10, 1.0000000000000001e-09, 1e-08, 9.9999999999999995e-08, 9.9999999999999995e-07, 1.0000000000000001e-05, 0.0001, 0.001, 0.01, 0.10000000000000001], 'kernel': ['rbf']},
+           param_grid={'kernel': ['rbf'], 'C': [0.10000000000000001, 0.31622776601683794, 1.0, 3.1622776601683795, 10.0, 31.622776601683793, 100.0, 316.22776601683796], 'gamma': [1e-10, 1.0000000000000001e-09, 1e-08, 9.9999999999999995e-08, 9.9999999999999995e-07, 1.0000000000000001e-05, 0.0001, 0.001, 0.01, 0.10000000000000001]},
            pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)
 
 
@@ -352,14 +352,14 @@ plt.yticks(np.arange(len(params["C"])),params["C"])
 
 
 
-    ([<matplotlib.axis.YTick at 0x1189e0b38>,
-      <matplotlib.axis.YTick at 0x1189e0908>,
-      <matplotlib.axis.YTick at 0x11813f550>,
-      <matplotlib.axis.YTick at 0x1189e77f0>,
-      <matplotlib.axis.YTick at 0x11814dd68>,
-      <matplotlib.axis.YTick at 0x118151908>,
-      <matplotlib.axis.YTick at 0x11813fcc0>,
-      <matplotlib.axis.YTick at 0x118141be0>],
+    ([<matplotlib.axis.YTick at 0x10e630048>,
+      <matplotlib.axis.YTick at 0x10e620208>,
+      <matplotlib.axis.YTick at 0x10e62c7f0>,
+      <matplotlib.axis.YTick at 0x10ddb49e8>,
+      <matplotlib.axis.YTick at 0x10e2ffba8>,
+      <matplotlib.axis.YTick at 0x10dceb4a8>,
+      <matplotlib.axis.YTick at 0x10de3bf98>,
+      <matplotlib.axis.YTick at 0x10b24fcc0>],
      <a list of 8 Text yticklabel objects>)
 
 
@@ -376,7 +376,7 @@ print(search.best_params_)
 print(search.score(X_test, y_test))
 ```
 
-    {'C': 100.0, 'gamma': 1.0000000000000001e-05, 'kernel': 'rbf'}
+    {'C': 1.0, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.856435643564
 
 
