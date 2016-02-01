@@ -1105,7 +1105,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 ```
-
+**If you are using python in a text editor (such as Sublime Text) or in the Terminal rather than iPython notebook then disregard the `%matplotlib inline` command above and elsewhere in the tutorial. The plots will still render.**
 
 ```python
 rs = np.random.RandomState(10)
@@ -1113,8 +1113,6 @@ d = rs.normal(size=100)
 # sns.distplot(d, kde=False, color="b")
 # np.histogram(d)
 ```
-
-
 
 
     (array([ 6,  3,  8, 15, 22, 20, 11,  9,  3,  3]),
@@ -1172,7 +1170,7 @@ sns.distplot(clean_data.mean_temperature)
 ![png](level_2_files/level_2_35_1.png)
 
 
-The `%matplotlib inline` is a special Jupyter magic. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
+The `%matplotlib inline` is a special Jupyter magic, so see the bolded note above if you aren't using IPython notebook. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
 
 
 ```python
