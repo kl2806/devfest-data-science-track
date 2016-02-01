@@ -1,6 +1,8 @@
 
 # Level 3: Introduction to Modeling
 
+(Find this notebook hosted [here](http://nbviewer.jupyter.org/github/kl2806/devfest-data-science-track/blob/master/level_3.ipynb).)
+
 Now we're at one of the coolest parts of data science: modeling. When you're analyzing data, you usually have something you want to predict based on other information you have. There are many different ways to "do prediction," and we'll be covering two popular methods: *k*-nearest neighbor (KNN) and linear regression. But before we start, let's cover some terminology and concepts that are good to keep in mind when modeling.
 
 We usually call the variable that we're trying to predict the *output variable*; the other features we use to predict said output are called *input variables.* The procedure by which predict a new data point using other data points is our *model*, and as we mentioned before, there are a variety of modeling techniques to choose from. Luckily we don't have to code them all from scratch because Python is awesome: there's a package called `scikit-learn` that does this for us. (As an aside, prediction is called *classification* if the output variable is discrete and *regression* if it is continuous.)
@@ -274,3 +276,15 @@ sns.plt.xlabel('Real Value')
 sns.plt.ylabel('Prediction')
 plt.show()
 ```
+
+    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+      warnings.warn(self.msg_depr % (key, alt_key))
+
+
+
+![png](level_3_files/level_3_16_1.png)
+
+
+
+![png](level_3_files/level_3_16_2.png)
+

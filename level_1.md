@@ -1,9 +1,23 @@
 
 # Data Science Track
 
-Welcome to the data science track :D We'll be exploring some weather data to see if we can predict whether it'll rain, so let's get started!
+Welcome to the data science track! :D <br>
+We'll be exploring some weather data to see if we can predict whether it'll rain, so let's get started!
+
+# Level 0: Environment Setup
+The first tool we'll need is [pip](https://pip.pypa.io/en/stable/installing/). Once we have that, the following lines will set up the necessary modules:
+```
+pip install pandas
+pip install bokeh
+pip install ipython
+pip install jupyter
+pip install scikit-learn
+```
+We wrote this curriculum using [Jupyter notebooks](http://jupyter.org/), so there may be some slight finnegaling required (such as omitting `%matplotlib inline` and `bokeh.io.output_notebook()`).
 
 # Level 1: Scraping Data
+
+(Find this notebook hosted [here](http://nbviewer.jupyter.org/github/kl2806/devfest-data-science-track/blob/master/level_1.ipynb).)
 
 In this level, we'll obtain the data we need for future analysis. Data collection is often overlooked, but it's crucial to obtain high quality data without errors.
 
