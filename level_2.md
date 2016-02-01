@@ -1107,27 +1107,6 @@ import numpy as np
 ```
 **If you are using python in a text editor (such as Sublime Text) or in the Terminal rather than iPython notebook then disregard the `%matplotlib inline` command above and elsewhere in the tutorial. The plots will still render.**
 
-```python
-rs = np.random.RandomState(10)
-d = rs.normal(size=100)
-# sns.distplot(d, kde=False, color="b")
-# np.histogram(d)
-```
-
-
-    (array([ 6,  3,  8, 15, 22, 20, 11,  9,  3,  3]),
-     array([-2.13171211, -1.67177579, -1.21183948, -0.75190316, -0.29196684,
-             0.16796947,  0.62790579,  1.08784211,  1.54777842,  2.00771474,
-             2.46765106]))
-
-
-```python
-sns.distplot(clean_data.mean_temperature)
-```
-
-![png](level_2_files/level_2_35_1.png)
-
-
 The `%matplotlib inline` is a special Jupyter magic, so see the note above if you aren't using IPython notebook. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
 
 
@@ -1135,18 +1114,12 @@ The `%matplotlib inline` is a special Jupyter magic, so see the note above if yo
 sns.distplot(clean_data.mean_temperature)
 ```
 
-![png](level_2_files/level_2_37_1.png)
-
-
 This simple plot just visualizes the distribution of the average temperature across all the days we collected data for; specifically, it plots the histogram (the bars) and an estimate of the distribution (the line). We can also just plot the histogram.
 
 
 ```python
 sns.distplot(clean_data.mean_temperature, kde=False)
 ```
-
-![png](level_2_files/level_2_39_1.png)
-
 
 Neat! Let's add a title and some axis labels.
 
@@ -1157,9 +1130,6 @@ sns.plt.title('Daily Average Temperature (2013 - 2015)')
 sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
-
-![png](level_2_files/level_2_41_1.png)
-
 
 That looks like a pretty fancy graph. Let's zoom in on a portion by setting the limits of the plot; we'll also change the bin size accordingly since we're looking at a portion of the plot.
 
