@@ -1,6 +1,8 @@
 
 # Level 5: Interactive Visualizations
 
+(Find this notebook hosted [here](http://nbviewer.jupyter.org/github/kl2806/devfest-data-science-track/blob/master/level_5.ipynb).)
+
 Welcome to the last level of this data science tutorial! So far, we have gathered, explored, and modeled weather data. However, one key part is left: visualizing and interacting with data. In this level, we will generate interactive visualizations using the `bokeh` module in Python. The best part of `bokeh` is that we can integrate it easily with web apps that are powered by Python.
 
 First, let's import our data from previous levels.
