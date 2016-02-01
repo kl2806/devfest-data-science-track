@@ -1248,11 +1248,6 @@ sns.plt.ylabel('Precipitation')
 
 
 
-    /usr/local/lib/python3.4/site-packages/matplotlib/collections.py:590: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-      if self._edgecolors == str('face'):
-
-
-
 ![png](level_2_files/level_2_47_2.png)
 
 
@@ -1270,10 +1265,6 @@ sns.pairplot(clean_data, vars=["mean_temperature", "precipitation", "dew_point",
 
     <seaborn.axisgrid.PairGrid at 0x107cd3ba8>
 
-
-
-    /usr/local/lib/python3.4/site-packages/matplotlib/collections.py:590: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-      if self._edgecolors == str('face'):
 
 
 
