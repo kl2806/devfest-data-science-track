@@ -1170,7 +1170,7 @@ sns.distplot(clean_data.mean_temperature)
 ![png](level_2_files/level_2_35_1.png)
 
 
-The `%matplotlib inline` is a special Jupyter magic, so see the bolded note above if you aren't using IPython notebook. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
+The `%matplotlib inline` is a special Jupyter magic, so see the note above if you aren't using IPython notebook. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
 
 
 ```python
