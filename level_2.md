@@ -1121,51 +1121,9 @@ d = rs.normal(size=100)
              2.46765106]))
 
 
-
-
 ```python
 sns.distplot(clean_data.mean_temperature)
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-49-e9230350df36> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature)
-    
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
 
 ![png](level_2_files/level_2_35_1.png)
 
@@ -1177,46 +1135,6 @@ The `%matplotlib inline` is a special Jupyter magic, so see the note above if yo
 sns.distplot(clean_data.mean_temperature)
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-27-e9230350df36> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature)
-    
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
 ![png](level_2_files/level_2_37_1.png)
 
 
@@ -1226,46 +1144,6 @@ This simple plot just visualizes the distribution of the average temperature acr
 ```python
 sns.distplot(clean_data.mean_temperature, kde=False)
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-40-b9b95f4ef2e2> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False)
-    
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
 
 ![png](level_2_files/level_2_39_1.png)
 
@@ -1279,49 +1157,6 @@ sns.plt.title('Daily Average Temperature (2013 - 2015)')
 sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-29-f54995eb4009> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False)
-          2 sns.plt.title('Daily Average Temperature (2013 - 2015)')
-          3 sns.plt.xlabel('Temperature')
-          4 sns.plt.ylabel('Frequency')
-
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
 
 ![png](level_2_files/level_2_41_1.png)
 
@@ -1360,50 +1195,6 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-31-80d81df35de0> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False)
-          2 sns.distplot(clean_data.max_temperature, kde=False)
-          3 sns.plt.title('Daily Average and Max Temperature (2013 - 2015)')
-          4 sns.plt.xlabel('Temperature')
-          5 sns.plt.ylabel('Frequency')
-
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
 ![png](level_2_files/level_2_45_1.png)
 
 
@@ -1418,50 +1209,6 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 sns.plt.legend()
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-32-2e9b6d7626b8> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False, label="Average Temperature")
-          2 sns.distplot(clean_data.max_temperature, kde=False, label="Max Temperature")
-          3 sns.plt.title('Daily Average and Max Temperature (2013 - 2015)')
-          4 sns.plt.xlabel('Temperature')
-          5 sns.plt.ylabel('Frequency')
-
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
 
 ![png](level_2_files/level_2_47_1.png)
 
@@ -1495,17 +1242,7 @@ It'd be a hassle to do a scatterplot for every possible variable, but luckily, w
 ```python
 sns.pairplot(clean_data, vars=["mean_temperature", "precipitation", "dew_point", "wind_speed"])
 ```
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-      warnings.warn(self.msg_depr % (key, alt_key))
-
-
-
-
-
     <seaborn.axisgrid.PairGrid at 0x117442dd8>
-
-
 
 
 ![png](level_2_files/level_2_51_2.png)
