@@ -359,6 +359,8 @@ bokeh.plotting.show(p)
 
 
 
+![First](first.png)
+
 What an interesting interactive plot! Let's add some titles and axis labels.
 
 
@@ -467,6 +469,8 @@ bokeh.plotting.show(q)
 
 
 
+![Second](second.png)
+
 The great thing about `bokeh` is that most of the interactive functionality comes out of the box; all you have to do is specify the kind of plot that you want. Now, let's try a histogram.
 
 
@@ -574,6 +578,8 @@ bokeh.plotting.show(hist_plot)
     <bokeh.io._CommsHandle at 0x10b3adc88>
 
 
+
+![Third](third.png)
 
 To compare with our previous plotting tool, Seaborn, it takes a little bit more work to get `bokeh` plots together, but the upside is that we get interactivity for free, letting us explore which parts of the plot are most interesting to us. Another interesting bit of functionality is the ability to "tab" your plots, let's check it out.
 
@@ -690,6 +696,8 @@ bokeh.plotting.show(tabs)
     <bokeh.io._CommsHandle at 0x10b3de7b8>
 
 
+
+![Fourth](fourth.png)
 
 Another cool aspect of `bokeh` is the ability to include widgets. Let's use a widget to interactively change the size of the points in our scatterplot.
 
@@ -820,6 +828,8 @@ bokeh.plotting.show(layout)
 
 
 
+![Fifth](fifth.png)
+
 We can leverage the above functionality to create cool interactions with our users.
 
 One last flashy bit of `bokeh` is the tool tip option, which allows us to display more information about the point when someone hovers over the point. Let's try using it on our scatterplot.
@@ -942,6 +952,8 @@ show(fig)
     <bokeh.io._CommsHandle at 0x10c067940>
 
 
+
+![Sixth](sixth.png)
 
 Awesome, we created a nice plot that shows us useful information when we hover over it.
 
