@@ -274,15 +274,3 @@ sns.plt.xlabel('Real Value')
 sns.plt.ylabel('Prediction')
 plt.show()
 ```
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-      warnings.warn(self.msg_depr % (key, alt_key))
-
-
-
-![png](level_3_files/level_3_16_1.png)
-
-
-
-![png](level_3_files/level_3_16_2.png)
-
