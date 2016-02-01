@@ -1,7 +1,7 @@
 
 # Data Science Track
 
-Welcome to the data science track :D <br>
+Welcome to the data science track! :D <br>
 We'll be exploring some weather data to see if we can predict whether it'll rain, so let's get started!
 
 # Level 0: Environment Setup
@@ -16,7 +16,6 @@ pip install bokeh
 pip install ipython
 pip install jupyter
 pip install scikit-learn
-pip install tqdm
 pip install BeautifulSoup4
 pip install requests
 ```
@@ -112,31 +111,51 @@ print("\n".join(links[:5]))
     http://www.wunderground.com/history/airport/KNYC/2013/1/5/DailyHistory.html
 
 
-It looks like our code is working! We have exactly 3 year's worth of links (3 * 365 = 1095), which is a nice little sanity check. Now that we have all the links, we can start downloading the webpages using a neat library called `requests`. For speed, we'll combine with Python's `concurrent.futures` module to scrape multiple websites at the same time.
+It looks like our code is working! We have exactly 3 year's worth of links (3 * 365 = 1095), which is a nice little sanity check. Now that we have all the links, we can start downloading the webpages using a neat library called `requests`.
 
-We'll also save all the webpages locally, so that we don't have to keep re-downloading things if we need to redo our analysis.
+We'll also save all the webpages locally, so that we don't have to keep re-downloading things if we need to redo our analysis. (Don't worry if the next block of code takes a little bit to run, it is downloading over 1000 files after all!)
 
 
 ```python
 import requests
 import os.path
-import concurrent.futures
-from tqdm import tqdm    # progress bar
 
-link_to_fname = {link: "{}.html".format(i)
-                 for i, link in enumerate(links)
-                 if not os.path.isfile("{}.html".format(i))}
-
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    futures = [executor.submit(requests.get, link) for link in link_to_fname]
-    for future in tqdm(concurrent.futures.as_completed(futures)):
-        response = future.result()
-        fname = link_to_fname[response.url]
-        with open(fname, "w") as fout:
-            fout.write(response.text)
+def download_file(link, name):
+    if os.path.isfile(name):
+        return
+    file = open(name, 'w')
+    r = requests.get(link)
+    file.write(r.text)
+    file.close()
+for i, link in enumerate(links):
+    if i % 50 == 0:
+        print("Done with %d.." % i)
+    download_file(link, "%d.html" % i)
 ```
 
-    
+    Done with 0..
+    Done with 50..
+    Done with 100..
+    Done with 150..
+    Done with 200..
+    Done with 250..
+    Done with 300..
+    Done with 350..
+    Done with 400..
+    Done with 450..
+    Done with 500..
+    Done with 550..
+    Done with 600..
+    Done with 650..
+    Done with 700..
+    Done with 750..
+    Done with 800..
+    Done with 850..
+    Done with 900..
+    Done with 950..
+    Done with 1000..
+    Done with 1050..
+
 
 Now, we can use a library called Beautiful Soup to parse and explore the HTML pages:
 
@@ -162,13 +181,15 @@ for i in range(5):
     <i class="fi-torso sidebar-icon"></i> Sign Up / Sign In
       </a>
     
+    <a href="/wutv/?cm_ven=wutv_toast">
+    <iframe class="underlay" frameborder="no" id="ustream-tdu-player" src="//www.ustream.tv/embed/21416049" width="240"></iframe>
+    </a>
+    
+    <a class="modal-close close">×</a>
+    
     <a aria-label="Close" class="close-reveal-modal">×</a>
     
     <a class="button medium radius" href="/member/registration">Remove Ads</a>
-    
-    <a class="exit-off-canvas"></a>
-    
-    <a class="ad-choices" href="/adchoices.asp">AdChoices</a>
     
 
 
@@ -353,7 +374,7 @@ with open("weather_data.csv", "w") as fout:
     writer = csv.DictWriter(fout, csv_fields)
     writer.writeheader()
     
-    for i, link in tqdm(enumerate(links)):
+    for i, link in enumerate(links):
         data = scrape_file("{}.html".format(i))
         url_parts = link.split("/")
         data["Month"] = int(url_parts[-3])
@@ -362,5 +383,3 @@ with open("weather_data.csv", "w") as fout:
         
         writer.writerow(data)
 ```
-
-    
