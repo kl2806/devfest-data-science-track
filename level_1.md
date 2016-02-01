@@ -18,6 +18,7 @@ pip install jupyter
 pip install scikit-learn
 pip install tqdm
 pip install BeautifulSoup4
+pip install requests
 ```
 We wrote this curriculum using [Jupyter notebooks](http://jupyter.org/), so there may be some slight finnegaling required (such as omitting `%matplotlib inline` and `bokeh.io.output_notebook()`).
 
