@@ -1105,14 +1105,24 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 ```
-**If you are using python in a text editor (such as Sublime Text) or in the Terminal rather than iPython notebook then disregard the `%matplotlib inline` command above and elsewhere in the tutorial. The plots will still render.**
 
-The `%matplotlib inline` is a special Jupyter magic, so see the note above if you aren't using IPython notebook. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
+The `%matplotlib inline` is a special Jupyter magic. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
 
 
 ```python
 sns.distplot(clean_data.mean_temperature)
 ```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x105659128>
+
+
+
+
+![png](level_2_files/level_2_35_1.png)
+
 
 This simple plot just visualizes the distribution of the average temperature across all the days we collected data for; specifically, it plots the histogram (the bars) and an estimate of the distribution (the line). We can also just plot the histogram.
 
@@ -1120,6 +1130,17 @@ This simple plot just visualizes the distribution of the average temperature acr
 ```python
 sns.distplot(clean_data.mean_temperature, kde=False)
 ```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x107bd66d8>
+
+
+
+
+![png](level_2_files/level_2_37_1.png)
+
 
 Neat! Let's add a title and some axis labels.
 
@@ -1130,6 +1151,17 @@ sns.plt.title('Daily Average Temperature (2013 - 2015)')
 sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
+
+
+
+
+    <matplotlib.text.Text at 0x107d3f630>
+
+
+
+
+![png](level_2_files/level_2_39_1.png)
+
 
 That looks like a pretty fancy graph. Let's zoom in on a portion by setting the limits of the plot; we'll also change the bin size accordingly since we're looking at a portion of the plot.
 
@@ -1151,7 +1183,7 @@ sns.plt.ylim((0, 50))
 
 
 
-![png](level_2_files/level_2_43_1.png)
+![png](level_2_files/level_2_41_1.png)
 
 
 These same functions that we've been using to edit the graph can be used more generally, but let's move on to move interesting graphs. Namely, let's try plotting the histograms of the average and maximum temperature on the same graph.
@@ -1165,6 +1197,17 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
 
+
+
+
+    <matplotlib.text.Text at 0x108029ba8>
+
+
+
+
+![png](level_2_files/level_2_43_1.png)
+
+
 Whoa, cool plot alert! Let's add a legend to make sure someone looking at the plot knows which histogram is which.
 
 
@@ -1176,6 +1219,17 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 sns.plt.legend()
 ```
+
+
+
+
+    <matplotlib.legend.Legend at 0x1082dce80>
+
+
+
+
+![png](level_2_files/level_2_45_1.png)
+
 
 We're getting pretty good at this. Let's try plotting a scatterplot to see the relationship between temperature and precipitation.
 
@@ -1190,12 +1244,16 @@ sns.plt.ylabel('Precipitation')
 
 
 
-    <matplotlib.text.Text at 0x117425f98>
+    <matplotlib.text.Text at 0x107f955c0>
 
 
 
+    /usr/local/lib/python3.4/site-packages/matplotlib/collections.py:590: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+      if self._edgecolors == str('face'):
 
-![png](level_2_files/level_2_49_1.png)
+
+
+![png](level_2_files/level_2_47_2.png)
 
 
 This plot can help us think about the next step of modeling the data; it doesn't seem like temperature by itself will do a great job of predicting the amount of precipitation since there's a range of possible precipitation values for each temperature.
@@ -1206,10 +1264,20 @@ It'd be a hassle to do a scatterplot for every possible variable, but luckily, w
 ```python
 sns.pairplot(clean_data, vars=["mean_temperature", "precipitation", "dew_point", "wind_speed"])
 ```
-    <seaborn.axisgrid.PairGrid at 0x117442dd8>
 
 
-![png](level_2_files/level_2_51_2.png)
+
+
+    <seaborn.axisgrid.PairGrid at 0x107cd3ba8>
+
+
+
+    /usr/local/lib/python3.4/site-packages/matplotlib/collections.py:590: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
+      if self._edgecolors == str('face'):
+
+
+
+![png](level_2_files/level_2_49_2.png)
 
 
 In this level, we looked at how to explore our data to make sure nothing's wrong with it and to start thinking about how to model precipitation. Once you're ready, we'll see you on the next level to start modeling the data.
