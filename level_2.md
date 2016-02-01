@@ -1101,6 +1101,7 @@ To start, we'll need the following few lines:
 %matplotlib inline
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 ```
 
 The `%matplotlib inline` is a special Jupyter magic. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
@@ -1110,108 +1111,12 @@ The `%matplotlib inline` is a special Jupyter magic. It only works on Jupyter cl
 sns.distplot(clean_data.mean_temperature)
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-36-e9230350df36> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature)
-    
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-        210         hist_color = hist_kws.pop("color", color)
-        211         ax.hist(a, bins, orientation=orientation,
-    --> 212                 color=hist_color, **hist_kws)
-        213         if hist_color != color:
-        214             hist_kws["color"] = hist_color
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                     warnings.warn(msg % (label_namer, func.__name__),
-       1810                                   RuntimeWarning, stacklevel=2)
-    -> 1811             return func(ax, *args, **kwargs)
-       1812         pre_doc = inner.__doc__
-       1813         if pre_doc is None:
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             # this will automatically overwrite bins,
-       5994             # so that each histogram uses the same bins
-    -> 5995             m, bins = np.histogram(x[i], bins, weights=w[i], **hist_kwargs)
-       5996             m = m.astype(float)  # causes problems later if it's an int
-       5997             if mlast is None:
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
-![png](level_2_files/level_2_35_1.png)
-
-
 This simple plot just visualizes the distribution of the average temperature across all the days we collected data for; specifically, it plots the histogram (the bars) and an estimate of the distribution (the line). We can also just plot the histogram.
 
 
 ```python
 sns.distplot(clean_data.mean_temperature, kde=False)
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-19-b9b95f4ef2e2> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False)
-    
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-        210         hist_color = hist_kws.pop("color", color)
-        211         ax.hist(a, bins, orientation=orientation,
-    --> 212                 color=hist_color, **hist_kws)
-        213         if hist_color != color:
-        214             hist_kws["color"] = hist_color
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                     warnings.warn(msg % (label_namer, func.__name__),
-       1810                                   RuntimeWarning, stacklevel=2)
-    -> 1811             return func(ax, *args, **kwargs)
-       1812         pre_doc = inner.__doc__
-       1813         if pre_doc is None:
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             # this will automatically overwrite bins,
-       5994             # so that each histogram uses the same bins
-    -> 5995             m, bins = np.histogram(x[i], bins, weights=w[i], **hist_kwargs)
-       5996             m = m.astype(float)  # causes problems later if it's an int
-       5997             if mlast is None:
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
-![png](level_2_files/level_2_37_1.png)
-
 
 Neat! Let's add a title and some axis labels.
 
@@ -1222,57 +1127,6 @@ sns.plt.title('Daily Average Temperature (2013 - 2015)')
 sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-24-f54995eb4009> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False)
-          2 sns.plt.title('Daily Average Temperature (2013 - 2015)')
-          3 sns.plt.xlabel('Temperature')
-          4 sns.plt.ylabel('Frequency')
-
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-        210         hist_color = hist_kws.pop("color", color)
-        211         ax.hist(a, bins, orientation=orientation,
-    --> 212                 color=hist_color, **hist_kws)
-        213         if hist_color != color:
-        214             hist_kws["color"] = hist_color
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                     warnings.warn(msg % (label_namer, func.__name__),
-       1810                                   RuntimeWarning, stacklevel=2)
-    -> 1811             return func(ax, *args, **kwargs)
-       1812         pre_doc = inner.__doc__
-       1813         if pre_doc is None:
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             # this will automatically overwrite bins,
-       5994             # so that each histogram uses the same bins
-    -> 5995             m, bins = np.histogram(x[i], bins, weights=w[i], **hist_kwargs)
-       5996             m = m.astype(float)  # causes problems later if it's an int
-       5997             if mlast is None:
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
-![png](level_2_files/level_2_39_1.png)
-
 
 That looks like a pretty fancy graph. Let's zoom in on a portion by setting the limits of the plot; we'll also change the bin size accordingly since we're looking at a portion of the plot.
 
