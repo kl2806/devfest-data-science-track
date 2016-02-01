@@ -8,6 +8,10 @@ We'll be exploring some weather data to see if we can predict whether it'll rain
 The first tool we'll need is [pip](https://pip.pypa.io/en/stable/installing/). Once we have that, the following lines will set up the necessary modules:
 ```
 pip install pandas
+pip install numpy
+pip install seaborn
+pip install scipy
+pip install matplotlib
 pip install bokeh
 pip install ipython
 pip install jupyter
