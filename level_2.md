@@ -1107,69 +1107,6 @@ import numpy as np
 ```
 **If you are using python in a text editor (such as Sublime Text) or in the Terminal rather than iPython notebook then disregard the `%matplotlib inline` command above and elsewhere in the tutorial. The plots will still render.**
 
-```python
-rs = np.random.RandomState(10)
-d = rs.normal(size=100)
-# sns.distplot(d, kde=False, color="b")
-# np.histogram(d)
-```
-
-
-    (array([ 6,  3,  8, 15, 22, 20, 11,  9,  3,  3]),
-     array([-2.13171211, -1.67177579, -1.21183948, -0.75190316, -0.29196684,
-             0.16796947,  0.62790579,  1.08784211,  1.54777842,  2.00771474,
-             2.46765106]))
-
-
-
-
-```python
-sns.distplot(clean_data.mean_temperature)
-```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-49-e9230350df36> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature)
-    
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
-![png](level_2_files/level_2_35_1.png)
-
-
 The `%matplotlib inline` is a special Jupyter magic, so see the note above if you aren't using IPython notebook. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
 
 
@@ -1177,98 +1114,12 @@ The `%matplotlib inline` is a special Jupyter magic, so see the note above if yo
 sns.distplot(clean_data.mean_temperature)
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-27-e9230350df36> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature)
-    
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
-![png](level_2_files/level_2_37_1.png)
-
-
 This simple plot just visualizes the distribution of the average temperature across all the days we collected data for; specifically, it plots the histogram (the bars) and an estimate of the distribution (the line). We can also just plot the histogram.
 
 
 ```python
 sns.distplot(clean_data.mean_temperature, kde=False)
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-40-b9b95f4ef2e2> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False)
-    
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
-![png](level_2_files/level_2_39_1.png)
-
 
 Neat! Let's add a title and some axis labels.
 
@@ -1279,52 +1130,6 @@ sns.plt.title('Daily Average Temperature (2013 - 2015)')
 sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-29-f54995eb4009> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False)
-          2 sns.plt.title('Daily Average Temperature (2013 - 2015)')
-          3 sns.plt.xlabel('Temperature')
-          4 sns.plt.ylabel('Frequency')
-
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
-![png](level_2_files/level_2_41_1.png)
-
 
 That looks like a pretty fancy graph. Let's zoom in on a portion by setting the limits of the plot; we'll also change the bin size accordingly since we're looking at a portion of the plot.
 
@@ -1360,53 +1165,6 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
 
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-31-80d81df35de0> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False)
-          2 sns.distplot(clean_data.max_temperature, kde=False)
-          3 sns.plt.title('Daily Average and Max Temperature (2013 - 2015)')
-          4 sns.plt.xlabel('Temperature')
-          5 sns.plt.ylabel('Frequency')
-
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
-![png](level_2_files/level_2_45_1.png)
-
-
 Whoa, cool plot alert! Let's add a legend to make sure someone looking at the plot knows which histogram is which.
 
 
@@ -1418,53 +1176,6 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 sns.plt.legend()
 ```
-
-
-    ---------------------------------------------------------------------------
-
-    TypeError                                 Traceback (most recent call last)
-
-    <ipython-input-32-2e9b6d7626b8> in <module>()
-    ----> 1 sns.distplot(clean_data.mean_temperature, kde=False, label="Average Temperature")
-          2 sns.distplot(clean_data.max_temperature, kde=False, label="Max Temperature")
-          3 sns.plt.title('Daily Average and Max Temperature (2013 - 2015)')
-          4 sns.plt.xlabel('Temperature')
-          5 sns.plt.ylabel('Frequency')
-
-
-    /usr/local/lib/python3.5/site-packages/seaborn-0.6.0-py3.5.egg/seaborn/distributions.py in distplot(a, bins, hist, kde, rug, fit, hist_kws, kde_kws, rug_kws, fit_kws, color, vertical, norm_hist, axlabel, label, ax)
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py in inner(ax, *args, **kwargs)
-       1809                            "the matplotlib list!)")
-       1810                     warnings.warn(msg % (label_namer, func.__name__),
-    -> 1811                                   RuntimeWarning, stacklevel=2)
-       1812             return func(ax, *args, **kwargs)
-       1813         pre_doc = inner.__doc__
-
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/axes/_axes.py in hist(self, x, bins, range, normed, weights, cumulative, bottom, histtype, align, orientation, rwidth, log, color, label, stacked, **kwargs)
-       5993             xmax = -np.inf
-       5994             for xi in x:
-    -> 5995                 if len(xi) > 0:
-       5996                     xmin = min(xmin, xi.min())
-       5997                     xmax = max(xmax, xi.max())
-
-
-    /Users/kristyc/numpy/numpy/lib/function_base.py in histogram(a, bins, range, normed, weights, density)
-        380 
-        381         # Initialize empty histogram
-    --> 382         n = np.zeros(bins, ntype)
-        383         # Pre-compute histogram scaling factor
-        384         norm = bins / (mx - mn)
-
-
-    TypeError: 'numpy.float64' object cannot be interpreted as an integer
-
-
-
-![png](level_2_files/level_2_47_1.png)
-
 
 We're getting pretty good at this. Let's try plotting a scatterplot to see the relationship between temperature and precipitation.
 
@@ -1495,17 +1206,7 @@ It'd be a hassle to do a scatterplot for every possible variable, but luckily, w
 ```python
 sns.pairplot(clean_data, vars=["mean_temperature", "precipitation", "dew_point", "wind_speed"])
 ```
-
-    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-      warnings.warn(self.msg_depr % (key, alt_key))
-
-
-
-
-
     <seaborn.axisgrid.PairGrid at 0x117442dd8>
-
-
 
 
 ![png](level_2_files/level_2_51_2.png)
