@@ -1867,7 +1867,9 @@ sns.pairplot(clean_data, vars=["mean_temperature", "precipitation", "dew_point",
 
 In this level, we looked at how to explore our data to make sure nothing's wrong with it and to start thinking about how to model precipitation. But before we go let's save all our hard work. We'll write a new csv file called "clean_weather_data.csv" so that we don't have to worry about weird values for further analyses.
 
+```python
 clean_data.to_csv('clean_weather_data.csv', index=False)
+```
 
 That's it! Once you're ready, we'll see you on the next level to start modeling the data. 
 
