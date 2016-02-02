@@ -138,9 +138,7 @@ Open a terminal (or `cmd.exe`) and run:
 ```bash
 $ jupyter notebook
 ```
-<br>
-
-If that doesn't work for some reason, try:
+If that doesn't work, try:
 
 ```bash
 $ ipython notebook
