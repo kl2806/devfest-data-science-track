@@ -5,21 +5,103 @@ Welcome to the data science track! :D <br>
 We'll be exploring some weather data to see if we can predict whether it'll rain, so let's get started!
 
 # Level 0: Environment Setup
-The first tool we'll need is [pip](https://pip.pypa.io/en/stable/installing/). Once we have that, the following lines will set up the necessary modules:
+# Level 0: Environment Setup
+
+## Using Conda
+
+We highly recommend that you download and use
+[Conda](https://www.continuum.io/downloads), an open-source package
+manager for scientific computing. Why? Well, scientific computing
+packages typically link to some heavy-duty C and Fortran libraries.
+Conda makes it extremely easy to install these cross-language
+dependencies easily on all major platforms. If you don't use Conda,
+you might have to spend time messing around with installing an entire
+Fortran toolchain, which is definitely not fun (especially on Windows).
+
+The easiest way to install Conda is with Anaconda (make sure you pick
+Python 3), which is essentially Conda bundled with two dozen commonly
+installed dependencies. Anaconda comes with
+[Spyder](https://en.wikipedia.org/wiki/Spyder_%28software%29) a nice IDE
+for Python data science.  You can also use a [Jupyter
+notebook](http://jupyter.org/), which lets you code in the browser (this
+curriculum was originally developed on a Jupyter notebook, and we do
+make use of a couple Jupyter-specific commands).
+
+Be warned, though: Anaconda installs a _lot_ of packages.  If you're
+strapped for hard drive space, consider installing
+[Miniconda](http://conda.pydata.org/miniconda.html), the minimal
+distribution with Conda.
+After installing Conda, open up a command prompt (`cmd.exe` for Windows
+and `Terminal` for Mac) and type:
+
+```bash
+$ conda update conda
+$ conda install bokeh matplotlib notebook numpy pandas requests scikit-learn seaborn
 ```
-pip install pandas
-pip install numpy
-pip install seaborn
-pip install scipy
-pip install matplotlib
-pip install bokeh
-pip install ipython
-pip install jupyter
-pip install scikit-learn
-pip install BeautifulSoup4
-pip install requests
+
+For Conda power users, you also use the following `environment.yml` file:
+
 ```
-We wrote this curriculum using [Jupyter notebooks](http://jupyter.org/), so there may be some slight finnegaling required (such as omitting `%matplotlib inline` and `bokeh.io.output_notebook()`).
+name: devfest
+dependencies:
+- beautifulsoup4=4.4
+- matplotlib=1.5.1
+- notebook=4.1.0
+- numpy=1.10.2
+- pandas=0.17.1
+- python=3.5
+- requests=2.9.1
+- seaborn=0.7.0
+```
+
+## Without Conda
+
+If you're not using Conda, then we recommend you install Python 3 from
+the [Python website](https://www.python.org/). Certain computers may
+come with a version of Python installed: if you see something like:
+
+```bash
+$ python3
+Python 3.5.1 (default, Dec  7 2015, 11:16:01)
+[GCC 4.8.4] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+```
+
+when you type `python3` onto a terminal, then you're good to go (don't
+worry too much if you have Python 3.3 or Python 3.4 instead of Python
+3.5 -- our code should be compatible with all three versions).
+
+Python 3 should automatically come with `pip`, the Python package
+manager. Open up a terminal and type:
+
+```bash
+$ pip3 install BeautifulSoup4
+$ pip3 install bokeh
+$ pip3 install jupyter
+$ pip3 install matplotlib
+$ pip3 install numpy
+$ pip3 install pandas
+$ pip3 install requests
+$ pip3 install scikit-learn
+$ pip3 install scipy
+$ pip3 install seaborn
+```
+
+On Windows, you might need to visit [Christoph Gohlke's Unofficial
+Windows Binaries](http://www.lfd.uci.edu/~gohlke/pythonlibs/) to get
+things to install correctly.
+
+## Getting Started
+
+Open a terminal (or `cmd.exe`) and run:
+
+```bash
+$ jupyter notebook
+```
+a Jupyter notebook window should pop-up. Just create a new Python 3 notebook and you should be good to go.
+
+If you decide to use something other than a Jupyter notebook, note that we used some notebook-specific things (e.g. `%maptplotlib inline` or `bokeh.io.output_notebook()`), so you'll have to play around with the code some more.
 
 # Level 1: Scraping Data
 
