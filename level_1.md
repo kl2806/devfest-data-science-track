@@ -5,7 +5,6 @@ Welcome to the data science track! :D <br>
 We'll be exploring some weather data to see if we can predict whether it'll rain, so let's get started!
 
 # Level 0: Environment Setup
-# Level 0: Environment Setup
 
 ## Using Conda
 
@@ -78,6 +77,7 @@ manager. Open up a terminal and type:
 ```bash
 $ pip3 install BeautifulSoup4
 $ pip3 install bokeh
+$ pip3 install ipython
 $ pip3 install jupyter
 $ pip3 install matplotlib
 $ pip3 install numpy
@@ -99,9 +99,10 @@ Open a terminal (or `cmd.exe`) and run:
 ```bash
 $ jupyter notebook
 ```
+
 a Jupyter notebook window should pop-up. Just create a new Python 3 notebook and you should be good to go.
 
-If you decide to use something other than a Jupyter notebook, note that we used some notebook-specific things (e.g. `%maptplotlib inline` or `bokeh.io.output_notebook()`), so you'll have to play around with the code some more.
+If you decide to use something other than a Jupyter notebook, note that we used some Jupyter-specific We wrote this curriculum using [Jupyter notebooks](http://jupyter.org/), so there may be some slight finnegaling required (such as omitting `%matplotlib inline` and `bokeh.io.output_notebook()`).
 
 # Level 1: Scraping Data
 
