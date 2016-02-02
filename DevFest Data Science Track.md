@@ -1865,7 +1865,11 @@ sns.pairplot(clean_data, vars=["mean_temperature", "precipitation", "dew_point",
 ![png](level_2_files/level_2_49_2.png)
 
 
-In this level, we looked at how to explore our data to make sure nothing's wrong with it and to start thinking about how to model precipitation. Once you're ready, we'll see you on the next level to start modeling the data.
+In this level, we looked at how to explore our data to make sure nothing's wrong with it and to start thinking about how to model precipitation. But before we go let's save all our hard work. We'll write a new csv file called "clean_weather_data.csv" so that we don't have to worry about weird values for further analyses.
+
+clean_data.to_csv('clean_weather_data.csv', index=False)
+
+That's it! Once you're ready, we'll see you on the next level to start modeling the data. 
 
 <a href="#top" class="top" id="level3">Top</a>
 # Level 3: Introduction to Modeling
@@ -1894,7 +1898,7 @@ Now, let's use this to actually predict some precipitation! We'll first read in 
 ```python
 import pandas as pd
 
-data = pd.read_csv(weather_data.csv')
+data = pd.read_csv(clean_weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
@@ -2187,7 +2191,7 @@ First we start by loading our data from the csv file into a pandas dataframe.
 ```python
 import pandas as pd
 
-df = pd.read_csv(weather_data.csv")
+df = pd.read_csv(clean_weather_data.csv")
 df.head()
 ```
 <br>
@@ -2604,7 +2608,7 @@ First, let's import our data from previous levels.
 import numpy as np
 import pandas as pd
 
-data = pd.read_csv('weather_data.csv')
+data = pd.read_csv('clean_weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
