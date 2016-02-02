@@ -12,7 +12,7 @@ Written and developed by [CDSS](http://cdssatcu.com) in partnership with [ADI](h
 Welcome to the data science track. This guide will teach you fundamental concepts of data science by guiding you through the steps to obtain, analyze, and visualize data. We'll be exploring some weather data to see if we can predict whether it'll rain, so let's get started!
 
 ## Prerequisites
-Basic knowledge of the Python programming language is suggested. If you don't already know Python, check out [this ADI-developed tutorial](phttp://learn.adicu.com/python/).
+Basic knowledge of the Python programming language is suggested. If you don't already know Python, check out [this ADI-developed tutorial](http://learn.adicu.com/python/).
 
 <a href="#top" class="top" id="table-of-contents">Top</a>
 # Table of Contents
@@ -27,12 +27,8 @@ Basic knowledge of the Python programming language is suggested. If you don't al
 
 <a href="#top" class="top" id="level0">Top</a>
 # Level 0: Environment Setup
-
-If you don't already have Python 2.7 installed on your computer, download it [here](https://www.python.org/downloads/).
-
-The next thing we'll need is [pip](https://pip.pypa.io/en/stable/installing/). Once we install that, the following lines will set up the necessary modules:
-
-```bash
+The first tool we'll need is [pip](https://pip.pypa.io/en/stable/installing/). Once we have that, the following lines will set up the necessary modules:
+```
 pip install pandas
 pip install numpy
 pip install seaborn
@@ -42,13 +38,9 @@ pip install bokeh
 pip install ipython
 pip install jupyter
 pip install scikit-learn
-pip install tqdm
 pip install BeautifulSoup4
 pip install requests
 ```
-
-Type those commands, one line at a time, into your Terminal or Command Prompt to install all the necessary python packages that we'll be using.
-
 We wrote this curriculum using [Jupyter notebooks](http://jupyter.org/), so there may be some slight finnegaling required (such as omitting `%matplotlib inline` and `bokeh.io.output_notebook()`).
 
 <a href="#top" class="top" id="level1">Top</a>
@@ -70,15 +62,15 @@ The Weather Underground actually has an API [available](http://www.wunderground.
 
 To start collecting our data, let's look at a [sample webpage](http://www.wunderground.com/history/airport/KNYC/2016/1/1/DailyHistory.html) that we may extract information from:
 
-![Wunderground Screenshot](../wunderground.png)
+![Wunderground Screenshot](wunderground.png)
 
 The page organizes information into a nice, neat table, which is good for us. Let's dig into this a little more by exploring how the webpage is presenting this information.
 
-![Inspect Screenshot](../inspect.png)
+![Inspect Screenshot](inspect.png)
 
 Let's right click on the 38$^\circ$, and then press "Inspect". This will allow us to look at the actual HTML code that generated the webpage we're looking at. We can then right click where it says `tbody` and press "Edit as HTML".
 
-![Edit as HTML Screenshot](../edit-as-html.png)
+![Edit as HTML Screenshot](edit-as-html.png)
 
 This should show you the code of this table, which should look like:
 
@@ -134,8 +126,6 @@ print(len(links))
 print("\n".join(links[:5]))
 ```
 
-Let's check the output here:
-
     1095
     http://www.wunderground.com/history/airport/KNYC/2013/1/1/DailyHistory.html
     http://www.wunderground.com/history/airport/KNYC/2013/1/2/DailyHistory.html
@@ -144,31 +134,51 @@ Let's check the output here:
     http://www.wunderground.com/history/airport/KNYC/2013/1/5/DailyHistory.html
 
 
-It looks like our code is working! We have exactly 3 year's worth of links (3 * 365 = 1095), which is a nice little sanity check. Now that we have all the links, we can start downloading the webpages using a neat library called `requests`. For speed, we'll combine with Python's `concurrent.futures` module to scrape multiple websites at the same time.
+It looks like our code is working! We have exactly 3 year's worth of links (3 * 365 = 1095), which is a nice little sanity check. Now that we have all the links, we can start downloading the webpages using a neat library called `requests`.
 
-We'll also save all the webpages locally, so that we don't have to keep re-downloading things if we need to redo our analysis.
+We'll also save all the webpages locally, so that we don't have to keep re-downloading things if we need to redo our analysis. (Don't worry if the next block of code takes a little bit to run, it is downloading over 1000 files after all!)
 
 
 ```python
 import requests
 import os.path
-import concurrent.futures
-from tqdm import tqdm    # progress bar
 
-link_to_fname = {link: "{}.html".format(i)
-                 for i, link in enumerate(links)
-                 if not os.path.isfile("{}.html".format(i))}
-
-with concurrent.futures.ThreadPoolExecutor() as executor:
-    futures = [executor.submit(requests.get, link) for link in link_to_fname]
-    for future in tqdm(concurrent.futures.as_completed(futures)):
-        response = future.result()
-        fname = link_to_fname[response.url]
-        with open(fname, "w") as fout:
-            fout.write(response.text)
+def download_file(link, name):
+    if os.path.isfile(name):
+        return
+    file = open(name, 'w')
+    r = requests.get(link)
+    file.write(r.text)
+    file.close()
+for i, link in enumerate(links):
+    if i % 50 == 0:
+        print("Done with %d.." % i)
+    download_file(link, "%d.html" % i)
 ```
 
-    
+    Done with 0..
+    Done with 50..
+    Done with 100..
+    Done with 150..
+    Done with 200..
+    Done with 250..
+    Done with 300..
+    Done with 350..
+    Done with 400..
+    Done with 450..
+    Done with 500..
+    Done with 550..
+    Done with 600..
+    Done with 650..
+    Done with 700..
+    Done with 750..
+    Done with 800..
+    Done with 850..
+    Done with 900..
+    Done with 950..
+    Done with 1000..
+    Done with 1050..
+
 
 Now, we can use a library called Beautiful Soup to parse and explore the HTML pages:
 
@@ -190,19 +200,19 @@ for i in range(5):
     print()
 ```
 
-The tags are shown below.
-
     <a href="https://www.wunderground.com/member/registration">
     <i class="fi-torso sidebar-icon"></i> Sign Up / Sign In
       </a>
     
+    <a href="/wutv/?cm_ven=wutv_toast">
+    <iframe class="underlay" frameborder="no" id="ustream-tdu-player" src="//www.ustream.tv/embed/21416049" width="240"></iframe>
+    </a>
+    
+    <a class="modal-close close">×</a>
+    
     <a aria-label="Close" class="close-reveal-modal">×</a>
     
     <a class="button medium radius" href="/member/registration">Remove Ads</a>
-    
-    <a class="exit-off-canvas"></a>
-    
-    <a class="ad-choices" href="/adchoices.asp">AdChoices</a>
     
 
 
@@ -223,8 +233,6 @@ for i in range(3):
     print(rows[i])
     print()
 ```
-
-The output is displayed here:
 
     34
     <tr>
@@ -267,8 +275,6 @@ row_value = row.find_all('td')[1].text.strip()
 print(row_name, ":", row_value)
 ```
 
-Finally, we get:
-
     <td class="indent"><span>Mean Temperature</span></td>
     
     <td>
@@ -295,7 +301,6 @@ for row in rows:
         row_value = row.find_all('td')[1].text.strip() 
         print(row_name, ":", row_value)    
 ```
-Shown below are the data that we've found with our code.
 
     Mean Temperature : 33 °F
     Max Temperature : 40 °F
@@ -348,7 +353,7 @@ def scrape_file(name):
 scrape_file("0.html")
 ```
 
-Shown below are the values that we've found for the fields!
+
 
 
     {'Average Humidity': '54',
@@ -392,7 +397,7 @@ with open("weather_data.csv", "w") as fout:
     writer = csv.DictWriter(fout, csv_fields)
     writer.writeheader()
     
-    for i, link in tqdm(enumerate(links)):
+    for i, link in enumerate(links):
         data = scrape_file("{}.html".format(i))
         url_parts = link.split("/")
         data["Month"] = int(url_parts[-3])
@@ -402,7 +407,6 @@ with open("weather_data.csv", "w") as fout:
         writer.writerow(data)
 ```
 
-    
 <a href="#top" class="top" id="level2">Top</a>
 # Level 2: Exploring Data
 
@@ -747,7 +751,7 @@ Data frames are kind of like dictionaries, where the keys are column names and t
 data["dew_point"]
 ```
 
-Here's what we get after we run it.
+
 
 
     0       22
@@ -768,8 +772,6 @@ These series work just like numpy arrays, supporting all the standard arithmetic
 print(data["dew_point"].mean())
 data["dew_point"] * 5
 ```
-
-Some more output:
 
     40.2630136986
 
@@ -796,7 +798,6 @@ print(len(data))
 print(len(data.columns))
 data.columns
 ```
-Which gives us:
 
     1095
     14
@@ -819,7 +820,9 @@ You can also get both dimensions at once using `.shape`:
 ```python
 data.shape
 ```
-And we get the dimensions we were looking for.
+
+
+
 
     (1095, 14)
 
@@ -832,7 +835,7 @@ You can also get rows of the data frame using the `.iloc` selector. There, the `
 data.iloc[0]
 ```
 
-and returns the data that we want.
+
 
 
     month                1
@@ -844,7 +847,7 @@ and returns the data that we want.
     max_gust_speed      26
     Name: 0, dtype: object
 
-How about we try a different value?
+
 
 
 ```python
@@ -852,7 +855,7 @@ data.iloc[:5]
 ```
 
 
-We get:
+
 
 <div>
 <table border="1" class="dataframe">
@@ -1222,7 +1225,7 @@ Now that we know how to explore the data, let's look at some techniques for summ
 data.dtypes
 ```
 
-The output is shown below:
+
 
 
     month              int64
@@ -1243,7 +1246,7 @@ This function seems simple because it just prints out the type of each column; h
 data.precipitation.unique()
 ```
 
-Let's see what we get after we run that bit of code.
+
 
 
     array(['0.00', 'T', '0.55', '0.02', '0.09', '0.12', '0.69', '0.07', '0.22',
@@ -1272,8 +1275,6 @@ clean_data = data.convert_objects(convert_numeric=True)
 print(clean_data.dtypes)
 clean_data.precipitation.unique()
 ```
-
-What does that do?
 
     month               int64
     day                 int64
@@ -1513,14 +1514,24 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 ```
-**If you are using python in a text editor (such as Sublime Text) or in the Terminal rather than iPython notebook then disregard the `%matplotlib inline` command above and elsewhere in the tutorial. The plots will still render.**
 
-The `%matplotlib inline` is a special Jupyter magic, so see the note above if you aren't using IPython notebook. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
+The `%matplotlib inline` is a special Jupyter magic. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
 
 
 ```python
 sns.distplot(clean_data.mean_temperature)
 ```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x105659128>
+
+
+
+
+![png](level_2_files/level_2_35_1.png)
+
 
 This simple plot just visualizes the distribution of the average temperature across all the days we collected data for; specifically, it plots the histogram (the bars) and an estimate of the distribution (the line). We can also just plot the histogram.
 
@@ -1528,6 +1539,17 @@ This simple plot just visualizes the distribution of the average temperature acr
 ```python
 sns.distplot(clean_data.mean_temperature, kde=False)
 ```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x107bd66d8>
+
+
+
+
+![png](level_2_files/level_2_37_1.png)
+
 
 Neat! Let's add a title and some axis labels.
 
@@ -1538,6 +1560,17 @@ sns.plt.title('Daily Average Temperature (2013 - 2015)')
 sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
+
+
+
+
+    <matplotlib.text.Text at 0x107d3f630>
+
+
+
+
+![png](level_2_files/level_2_39_1.png)
+
 
 That looks like a pretty fancy graph. Let's zoom in on a portion by setting the limits of the plot; we'll also change the bin size accordingly since we're looking at a portion of the plot.
 
@@ -1551,7 +1584,7 @@ sns.plt.xlim((30, 60))
 sns.plt.ylim((0, 50))
 ```
 
-The code outputs the values of the axes.
+
 
 
     (0, 50)
@@ -1559,7 +1592,7 @@ The code outputs the values of the axes.
 
 
 
-![png](../level_2_files/level_2_43_1.png)
+![png](level_2_files/level_2_41_1.png)
 
 
 These same functions that we've been using to edit the graph can be used more generally, but let's move on to move interesting graphs. Namely, let's try plotting the histograms of the average and maximum temperature on the same graph.
@@ -1573,6 +1606,17 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
 
+
+
+
+    <matplotlib.text.Text at 0x108029ba8>
+
+
+
+
+![png](level_2_files/level_2_43_1.png)
+
+
 Whoa, cool plot alert! Let's add a legend to make sure someone looking at the plot knows which histogram is which.
 
 
@@ -1585,6 +1629,17 @@ sns.plt.ylabel('Frequency')
 sns.plt.legend()
 ```
 
+
+
+
+    <matplotlib.legend.Legend at 0x1082dce80>
+
+
+
+
+![png](level_2_files/level_2_45_1.png)
+
+
 We're getting pretty good at this. Let's try plotting a scatterplot to see the relationship between temperature and precipitation.
 
 
@@ -1596,7 +1651,13 @@ sns.plt.ylabel('Precipitation')
 ```
 
 
-![png](../level_2_files/level_2_49_1.png)
+
+
+    <matplotlib.text.Text at 0x107f955c0>
+
+
+
+![png](level_2_files/level_2_47_2.png)
 
 
 This plot can help us think about the next step of modeling the data; it doesn't seem like temperature by itself will do a great job of predicting the amount of precipitation since there's a range of possible precipitation values for each temperature.
@@ -1608,12 +1669,18 @@ It'd be a hassle to do a scatterplot for every possible variable, but luckily, w
 sns.pairplot(clean_data, vars=["mean_temperature", "precipitation", "dew_point", "wind_speed"])
 ```
 
-![png](../level_2_files/level_2_51_2.png)
+
+
+
+    <seaborn.axisgrid.PairGrid at 0x107cd3ba8>
+
+
+
+
+![png](level_2_files/level_2_49_2.png)
 
 
 In this level, we looked at how to explore our data to make sure nothing's wrong with it and to start thinking about how to model precipitation. Once you're ready, we'll see you on the next level to start modeling the data.
-
-
 
 <a href="#top" class="top" id="level3">Top</a>
 # Level 3: Introduction to Modeling
@@ -1632,7 +1699,7 @@ To make all this more concrete, let's frame it in terms of our problem. What are
 
 Here's our first method: the *k-nearest neighbor*. The name is informative: the *k*-nearest neighbor algorithm says that for any new point, we should average the output values associated with the *k* closest points to it and call that our predicted value. This picture will give us a better idea as to what that means: 
 
-![Nearest Neighbor Picture](../nn.gif)
+![Nearest Neighbor Picture](nn.gif)
 
 In this picture, *k* = 3 and we want to predict what that green dot could be. The algorithm first looks at the closest 3 points to the green dot and makes an assumption. It says, "Hey, I'm guessing that points closer to each other will be similar to each other, too." This isn't an outrageous assumption to make, especially since we tend to surround ourselves with people we "click" with -- people with whom we share certain qualities or characteristics. So this clever algorithm figures out that there are 2B's versus 1A in the dot's *3 closest neighbors* and predicts that the green dot will also be B. Cool, huh?
 
@@ -1646,7 +1713,6 @@ data = pd.read_csv('clean_weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
-Let's remind ourselves again what our data looked like.
 
     Month                 int64
     Day                   int64
@@ -1665,7 +1731,7 @@ Let's remind ourselves again what our data looked like.
     dtype: object
 
 
-A close-up view is shown below:
+
 
 
 <div>
@@ -1802,7 +1868,7 @@ knn_model = KNeighborsRegressor(n_neighbors=3)
 knn_model.fit(X_train, y_train)
 ```
 
-Now we run the model.
+
 
 
     KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
@@ -1827,8 +1893,6 @@ print("KNN loss:", knn_sum_squares)
 print("Variation explained: ", 100 * (1 - knn_sum_squares / mean_sum_squares), "%", sep="")
 ```
 
-The code gives us the values that we're looking for:
-
     Average loss: 29.9691113861
     KNN loss: 27.4045222222
     Variation explained: 8.55744146322%
@@ -1841,8 +1905,6 @@ We call the "variation explained" the coefficient of variation, or $r^2$. This q
 print("R^2: ", knn_model.score(X_test, y_test))
 ```
 
-Now, the output:
-
     R^2:  0.0855744146322
 
 
@@ -1850,7 +1912,7 @@ Cool, we managed to fit and analyze our first model! Let's move on to linear reg
 
 Let's first think about predicting an output variable with only one input variable. The basic idea of linear regression is that you can aim to fit a straight line through the scatterplot, like so:
 
-![Linear Regression](../linear-regression.png)
+![Linear Regression](linear-regression.png)
 
 It turns out that you can generalize this to predicting one variable using multiple variables. Let's see how we can put this into code using `sklearn`.
 
@@ -1861,7 +1923,7 @@ linear_model = LinearRegression()
 linear_model.fit(X_train, y_train)
 ```
 
-Now let's run the linear regression!
+
 
 
     LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False)
@@ -1874,8 +1936,6 @@ Yup, KNN wasn't a special case, `sklearn` just makes things that easy. Let's see
 ```python
 print(linear_model.score(X_test, y_test))
 ```
-
-The model score:
 
     0.210857982665
 
@@ -1901,13 +1961,16 @@ sns.plt.ylabel('Prediction')
 plt.show()
 ```
 
+    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+      warnings.warn(self.msg_depr % (key, alt_key))
 
-![png](../level_3_files/level_3_16_1.png)
+
+
+![png](level_3_files/level_3_16_1.png)
 
 
 
-![png](../level_3_files/level_3_16_2.png)
-
+![png](level_3_files/level_3_16_2.png)
 
 
 <a href="#top" class="top" id="level4">Top</a>
@@ -2072,7 +2135,7 @@ Here, ```fit_transform``` does all the work of figuring out what the possible ca
 new_day[0, :]
 ```
 
-The output is shown below:
+
 
 
     array([ 1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,
@@ -2089,7 +2152,6 @@ Now we can combine the one hot encoded features with our original data and split
 X = np.hstack([new_day, data.values[:, 2:]])
 ```
 
-Then we can split our data as we mentioned before.
 
 ```python
 from sklearn.cross_validation import train_test_split
@@ -2114,7 +2176,7 @@ svm.fit(X_train, y_train)
 svm.score(X_test, y_test)
 ```
 
-What's our prediction score?
+
 
 
     0.85643564356435642
@@ -2127,7 +2189,7 @@ But what cost parameter do we choose? We can't just pick *any* number -- we want
 
 Let's try breaking up our training data into K sections called "folds." At each iteration we hide one fold and train the SVM on the remaining K-1 folds, trying out several possible costs for the SVM. For each cost we quantify the model's performance by taking the average test error over all folds, then pick the cost parameter with the lowest overall test error. This is called K-Fold Cross Validation. Since pictures always make more sense than words, an example (for K = 7) is shown below.
 
-![K-Folds Picture](../kfolds.png)
+![K-Folds Picture](kfolds.png)
 Source: https://powerofmlexperience.wordpress.com/2015/07/15/k-fold-cross-validation-made-simple/
 
 Say we are trying to approximate the test error for a cost of 1, using 7-fold cross validation. We would go through each array in the above image, train on the green portion and obtain the error on the gray portion. The averaged errors over the seven folds is the performance of setting the model's cost equal to 1. It's a bit complex, but thankfully sklearn takes care of almost everything for us with its ```grid_search``` module. We can use it (and plot the errors for different costs) as follows: we define the parameters that we want to sweep through (in this case cost) and then we get all of the errors.
@@ -2142,7 +2204,7 @@ search = GridSearchCV(SVC(), param_grid=parameters, refit=True, cv=5)
 search.fit(X_train, y_train)
 ```
 
-The output of the gridsearch for the optimal cost parameter is shown below:
+
 
 
     GridSearchCV(cv=5, error_score='raise',
@@ -2155,7 +2217,7 @@ The output of the gridsearch for the optimal cost parameter is shown below:
            pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)
 
 
-Now let's try plotting the validation error!
+
 
 ```python
 #plot the validation error
@@ -2173,8 +2235,19 @@ plt.ylabel("Validation Error")
 plt.title("Linear SVM 5-Fold Cross Validation Error")
 ```
 
+    /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+      warnings.warn(self.msg_depr % (key, alt_key))
 
-![png](../level_4_files/level_4_20_2.png)
+
+
+
+
+    <matplotlib.text.Text at 0x10dcbe0f0>
+
+
+
+
+![png](level_4_files/level_4_20_2.png)
 
 
 We can check what the best parameters are like this.
@@ -2184,7 +2257,6 @@ We can check what the best parameters are like this.
 search.best_params_
 ```
 
-Our output:
 
 
 
@@ -2199,7 +2271,7 @@ The cool thing about sklearn is that the ```GridSearchCV``` class keeps the best
 search.score(X_test, y_test)
 ```
 
-And the score:
+
 
 
     0.86633663366336633
@@ -2225,7 +2297,7 @@ search = GridSearchCV(SVC(), param_grid=params, refit=True, cv=5)
 search.fit(X_train,y_train)
 ```
 
-We run our gridsearch again below:
+
 
 
     GridSearchCV(cv=5, error_score='raise',
@@ -2238,7 +2310,7 @@ We run our gridsearch again below:
            pre_dispatch='2*n_jobs', refit=True, scoring=None, verbose=0)
 
 
-And plot the errors:
+
 
 ```python
 #plot errors
@@ -2254,7 +2326,23 @@ plt.xticks(np.arange(len(params["gamma"])), params["gamma"], rotation=45)
 plt.yticks(np.arange(len(params["C"])),params["C"])
 ```
 
-![png](../level_4_files/level_4_29_1.png)
+
+
+
+    ([<matplotlib.axis.YTick at 0x10e630048>,
+      <matplotlib.axis.YTick at 0x10e620208>,
+      <matplotlib.axis.YTick at 0x10e62c7f0>,
+      <matplotlib.axis.YTick at 0x10ddb49e8>,
+      <matplotlib.axis.YTick at 0x10e2ffba8>,
+      <matplotlib.axis.YTick at 0x10dceb4a8>,
+      <matplotlib.axis.YTick at 0x10de3bf98>,
+      <matplotlib.axis.YTick at 0x10b24fcc0>],
+     <a list of 8 Text yticklabel objects>)
+
+
+
+
+![png](level_4_files/level_4_29_1.png)
 
 
 Again we can check what the best parameters were, and see how our performance on the test set is:
@@ -2265,15 +2353,11 @@ print(search.best_params_)
 print(search.score(X_test, y_test))
 ```
 
-Our best parameters are shown here:
-
     {'C': 1.0, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.856435643564
 
 
 We get a similar performance with the normal (linear) SVM and the RBF SVM, but that won't always be the case. Now you can go explore other kernels and try them out!
-
-
 
 <a href="#top" class="top" id="level5">Top</a>
 # Level 5: Interactive Visualizations
@@ -2293,7 +2377,6 @@ data = pd.read_csv('clean_weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
-Just a sanity check to make sure we have the same dataset as before! This should look familiar.
 
     index                 int64
     month                 int64
@@ -2443,7 +2526,7 @@ import bokeh.io, bokeh.plotting, bokeh.models
 bokeh.io.output_notebook()
 ```
 
-The output code is below:
+
 
 
     <script type="text/javascript">
@@ -2541,7 +2624,7 @@ p.circle(data.mean_temperature, data.dew_point)
 bokeh.plotting.show(p)
 ```
 
-What does this do?
+
 
 
     <div class="plotdiv" id="4e261b12-431c-4a5a-ac91-a6383ddb0278"></div>
@@ -2637,7 +2720,7 @@ What does this do?
 
 
 
-![First](../first.png)
+![First](first.png)
 
 What an interesting interactive plot! Let's add some titles and axis labels.
 
@@ -2651,7 +2734,7 @@ q.yaxis.axis_label = 'Dew Point'
 bokeh.plotting.show(q)
 ```
 
-The plots are shown below:
+
 
 
     <div class="plotdiv" id="b0640c28-481f-4ef9-841d-a4514d0b330e"></div>
@@ -2747,7 +2830,7 @@ The plots are shown below:
 
 
 
-![Second](../second.png)
+![Second](second.png)
 
 The great thing about `bokeh` is that most of the interactive functionality comes out of the box; all you have to do is specify the kind of plot that you want. Now, let's try a histogram.
 
@@ -2761,7 +2844,7 @@ hist_plot.yaxis.axis_label = "Frequency"
 bokeh.plotting.show(hist_plot)
 ```
 
-More plots here:
+
 
 
     <div class="plotdiv" id="1fff7d3b-ad4c-4f6a-9c0a-be3609b37fc1"></div>
@@ -2851,11 +2934,13 @@ More plots here:
 
 
 
+
+
     <bokeh.io._CommsHandle at 0x10b3adc88>
 
 
 
-![Third](../third.png)
+![Third](third.png)
 
 To compare with our previous plotting tool, Seaborn, it takes a little bit more work to get `bokeh` plots together, but the upside is that we get interactivity for free, letting us explore which parts of the plot are most interesting to us. Another interesting bit of functionality is the ability to "tab" your plots, let's check it out.
 
@@ -2878,7 +2963,7 @@ bokeh.plotting.show(tabs)
 ```
 
 
-And finally:
+
 
     <div class="plotdiv" id="115037c4-aa77-468e-8502-28648ffbbf00"></div>
 <script type="text/javascript">
@@ -2973,7 +3058,7 @@ And finally:
 
 
 
-![Fourth](../fourth.png)
+![Fourth](fourth.png)
 
 Another cool aspect of `bokeh` is the ability to include widgets. Let's use a widget to interactively change the size of the points in our scatterplot.
 
@@ -3008,7 +3093,7 @@ layout = bokeh.io.vform(size, plot)
 bokeh.plotting.show(layout)
 ```
 
-Here's the output:
+
 
 
     <div class="plotdiv" id="18acb36a-c7fb-4b65-b0e9-761f0a6278df"></div>
@@ -3104,7 +3189,7 @@ Here's the output:
 
 
 
-![Fifth](../fifth.png)
+![Fifth](fifth.png)
 
 We can leverage the above functionality to create cool interactions with our users.
 
@@ -3133,7 +3218,7 @@ fig.circle('x', 'y', source = tooltip_source)
 show(fig)
 ```
 
-We get:
+
 
 
     <div class="plotdiv" id="0990ac5d-6d26-4edb-b55d-7c0aa355a8d3"></div>
@@ -3229,9 +3314,8 @@ We get:
 
 
 
-![Sixth](../sixth.png)
+![Sixth](sixth.png)
 
 Awesome, we created a nice plot that shows us useful information when we hover over it.
 
 Thanks for completing this curriculum and taking your first steps towards being a data scientist!
-
