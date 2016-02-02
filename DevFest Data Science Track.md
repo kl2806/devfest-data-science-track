@@ -1890,7 +1890,7 @@ Now, let's use this to actually predict some precipitation! We'll first read in 
 ```python
 import pandas as pd
 
-data = pd.read_csv('clean_weather_data.csv')
+data = pd.read_csv(weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
@@ -2183,7 +2183,7 @@ First we start by loading our data from the csv file into a pandas dataframe.
 ```python
 import pandas as pd
 
-df = pd.read_csv("clean_weather_data.csv")
+df = pd.read_csv(weather_data.csv")
 df.head()
 ```
 <br>
@@ -2600,7 +2600,7 @@ First, let's import our data from previous levels.
 import numpy as np
 import pandas as pd
 
-data = pd.read_csv('clean_weather_data.csv')
+data = pd.read_csv('weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
