@@ -1,3 +1,11 @@
+<style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
 <a id="top"></a>
 # DevFest Data Science Track
 *Build a weather model using Python.*
@@ -59,11 +67,11 @@ and `Terminal` for Mac) and type:
 $ conda update conda
 $ conda install bokeh matplotlib notebook numpy pandas requests scikit-learn seaborn
 ```
-
+<br>
 For Conda power users, you also use the following `environment.yml` file:
 
 ```
-name: devfest
+<br>name: devfest
 dependencies:
 - beautifulsoup4=4.4
 - matplotlib=1.5.1
@@ -74,7 +82,7 @@ dependencies:
 - requests=2.9.1
 - seaborn=0.7.0
 ```
-
+<br>
 ## Without Conda
 
 If you're not using Conda, then we recommend you install Python 3 from
@@ -88,7 +96,7 @@ Python 3.5.1 (default, Dec  7 2015, 11:16:01)
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
-
+<br>
 when you type `python3` onto a terminal, then you're good to go (don't
 worry too much if you have Python 3.3 or Python 3.4 instead of Python
 3.5 -- our code should be compatible with all three versions).
@@ -109,7 +117,7 @@ $ pip3 install scikit-learn
 $ pip3 install scipy
 $ pip3 install seaborn
 ```
-
+<br>
 On Windows, you might need to visit [Christoph Gohlke's Unofficial
 Windows Binaries](http://www.lfd.uci.edu/~gohlke/pythonlibs/) to get
 things to install correctly.
@@ -121,7 +129,7 @@ Open a terminal (or `cmd.exe`) and run:
 ```bash
 $ jupyter notebook
 ```
-
+<br>
 a Jupyter notebook window should pop-up. Just create a new Python 3 notebook and you should be good to go.
 
 If you decide to use something other than a Jupyter notebook, note that we used some Jupyter-specific We wrote this curriculum using [Jupyter notebooks](http://jupyter.org/), so there may be some slight finnegaling required (such as omitting `%matplotlib inline` and `bokeh.io.output_notebook()`).
@@ -186,7 +194,7 @@ This should show you the code of this table, which should look like:
 (1966)</td>
 		</tr>
 ```
-
+<br>
 Here, we're seeing the raw HTML that the website is amde up of. Although it might take some squinting, we can see that each `tr` (table row) represents one variable that we might be interested in.
 
 Now, how much data do we want? To conveniently side-step leap years, let's say we're interested in data between January 1, 2013 and December 31, 2015.
@@ -208,7 +216,7 @@ links = [link_format.format(year, month, day)
 print(len(links))
 print("\n".join(links[:5]))
 ```
-
+<br>
     1095
     http://www.wunderground.com/history/airport/KNYC/2013/1/1/DailyHistory.html
     http://www.wunderground.com/history/airport/KNYC/2013/1/2/DailyHistory.html
@@ -238,7 +246,7 @@ for i, link in enumerate(links):
         print("Done with %d.." % i)
     download_file(link, "%d.html" % i)
 ```
-
+<br>
     Done with 0..
     Done with 50..
     Done with 100..
@@ -272,7 +280,7 @@ from bs4 import BeautifulSoup
 with open("0.html") as fin:
     soup = BeautifulSoup(fin.read(), "html.parser")
 ```
-
+<br>
 Using Beautiful Soup, we can look for particular things on different pages. For example, we can look for the links (`a` tags) on the page.
 
 
@@ -282,7 +290,7 @@ for i in range(5):
     print(all_as[-i])
     print()
 ```
-
+<br>
     <a href="https://www.wunderground.com/member/registration">
     <i class="fi-torso sidebar-icon"></i> Sign Up / Sign In
       </a>
@@ -305,7 +313,7 @@ For the specific data we're looking for, it's all inside of a `table` with `hist
 ```python
 main_table = soup.find(id='historyTable')
 ```
-
+<br>
 Now we can look for `tr`'s within this table specifically.
 
 
@@ -316,7 +324,7 @@ for i in range(3):
     print(rows[i])
     print()
 ```
-
+<br>
     34
     <tr>
     <th> </th>
@@ -357,7 +365,7 @@ row_name = row.find_all('td')[0].text.strip()  # Get rid of extra whitespace
 row_value = row.find_all('td')[1].text.strip()
 print(row_name, ":", row_value)
 ```
-
+<br>
     <td class="indent"><span>Mean Temperature</span></td>
     
     <td>
@@ -384,7 +392,7 @@ for row in rows:
         row_value = row.find_all('td')[1].text.strip() 
         print(row_name, ":", row_value)    
 ```
-
+<br>
     Mean Temperature : 33 °F
     Max Temperature : 40 °F
     Min Temperature : 26 °F
@@ -435,7 +443,7 @@ def scrape_file(name):
     return data
 scrape_file("0.html")
 ```
-
+<br>
 
 
 
@@ -456,11 +464,11 @@ scrape_file("0.html")
 Woo, we're making progress! Now that we can extract the data we want from any general HTML, it isn't too much more work to put together all of the data. We'll be storing all of this data in a special type of file called a *Comma Separated Values* (CSV) file; this just means a file that looks something like this:
 
 ```
-A,B,C
+<br>A,B,C
 1,2,3
 5,10,15
 ```
-
+<br>
 It is essentially equivalent to a spreadsheet that is like this:
 
 |  A  |  B  |  C  |
@@ -489,7 +497,7 @@ with open("weather_data.csv", "w") as fout:
         
         writer.writerow(data)
 ```
-
+<br>
 <a href="#top" class="top" id="level2">Top</a>
 # Level 2: Exploring Data
 
@@ -507,7 +515,7 @@ import pandas as pd
 
 data = pd.read_csv('weather_data.csv')
 ```
-
+<br>
 The basic object that Pandas uses is called a "data frame". You can think of it essentially as a spreadsheet or a two-dimensional array. Each row of the spreadsheet is another data point, while each column is a variable.
 
 
@@ -515,7 +523,7 @@ The basic object that Pandas uses is called a "data frame". You can think of it 
 pd.options.display.max_rows = 7
 data
 ```
-
+<br>
 
 
 
@@ -675,7 +683,7 @@ data.columns = [name.lower().replace(" ", "_")
                 for name in data.columns]
 data
 ```
-
+<br>
 
 
 
@@ -833,7 +841,7 @@ Data frames are kind of like dictionaries, where the keys are column names and t
 ```python
 data["dew_point"]
 ```
-
+<br>
 
 
 
@@ -855,7 +863,7 @@ These series work just like numpy arrays, supporting all the standard arithmetic
 print(data["dew_point"].mean())
 data["dew_point"] * 5
 ```
-
+<br>
     40.2630136986
 
 
@@ -881,7 +889,7 @@ print(len(data))
 print(len(data.columns))
 data.columns
 ```
-
+<br>
     1095
     14
 
@@ -903,7 +911,7 @@ You can also get both dimensions at once using `.shape`:
 ```python
 data.shape
 ```
-
+<br>
 
 
 
@@ -917,7 +925,7 @@ You can also get rows of the data frame using the `.iloc` selector. There, the `
 ```python
 data.iloc[0]
 ```
-
+<br>
 
 
 
@@ -936,7 +944,7 @@ data.iloc[0]
 ```python
 data.iloc[:5]
 ```
-
+<br>
 
 
 
@@ -1060,7 +1068,7 @@ Great, we can now access whole regions of data using the appropriate syntax depe
 december_data = data[data.month == 12]
 december_data[:5]
 ```
-
+<br>
 
 
 
@@ -1184,7 +1192,7 @@ We can chain these conditions to ensure that multiple conditions are met. Let's 
 may_2015_data = data[(data.month == 5) & (data.year == 2015)]
 may_2015_data[:5]
 ```
-
+<br>
 
 
 
@@ -1307,7 +1315,7 @@ Now that we know how to explore the data, let's look at some techniques for summ
 ```python
 data.dtypes
 ```
-
+<br>
 
 
 
@@ -1328,7 +1336,7 @@ This function seems simple because it just prints out the type of each column; h
 ```python
 data.precipitation.unique()
 ```
-
+<br>
 
 
 
@@ -1358,7 +1366,7 @@ clean_data = data.convert_objects(convert_numeric=True)
 print(clean_data.dtypes)
 clean_data.precipitation.unique()
 ```
-
+<br>
     month               int64
     day                 int64
     year                int64
@@ -1394,7 +1402,7 @@ Great, it looks like the conversion did what we expected to for the data types, 
 ```python
 clean_data = clean_data.dropna()
 ```
-
+<br>
 Awesome, now that we have cleaned up our data, let's try using the `describe` function to get a better idea of what's going on in the data.
 
 
@@ -1402,7 +1410,7 @@ Awesome, now that we have cleaned up our data, let's try using the `describe` fu
 pd.options.display.max_rows = 999
 clean_data.describe().transpose()
 ```
-
+<br>
 
 
 
@@ -1597,14 +1605,14 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 ```
-
+<br>
 The `%matplotlib inline` is a special Jupyter magic. It only works on Jupyter clients (like the notebook or the IPython shell). It essentially just tells matplotlib to embed its graphs in the html of the notebook, instead of popping up in a new window.
 
 
 ```python
 sns.distplot(clean_data.mean_temperature)
 ```
-
+<br>
 
 
 
@@ -1622,7 +1630,7 @@ This simple plot just visualizes the distribution of the average temperature acr
 ```python
 sns.distplot(clean_data.mean_temperature, kde=False)
 ```
-
+<br>
 
 
 
@@ -1643,7 +1651,7 @@ sns.plt.title('Daily Average Temperature (2013 - 2015)')
 sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
-
+<br>
 
 
 
@@ -1666,7 +1674,7 @@ sns.plt.ylabel('Frequency')
 sns.plt.xlim((30, 60))
 sns.plt.ylim((0, 50))
 ```
-
+<br>
 
 
 
@@ -1688,7 +1696,7 @@ sns.plt.title('Daily Average and Max Temperature (2013 - 2015)')
 sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 ```
-
+<br>
 
 
 
@@ -1711,7 +1719,7 @@ sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Frequency')
 sns.plt.legend()
 ```
-
+<br>
 
 
 
@@ -1732,7 +1740,7 @@ sns.plt.title('Temperature vs Precipitation')
 sns.plt.xlabel('Temperature')
 sns.plt.ylabel('Precipitation')
 ```
-
+<br>
 
 
 
@@ -1751,7 +1759,7 @@ It'd be a hassle to do a scatterplot for every possible variable, but luckily, w
 ```python
 sns.pairplot(clean_data, vars=["mean_temperature", "precipitation", "dew_point", "wind_speed"])
 ```
-
+<br>
 
 
 
@@ -1796,7 +1804,7 @@ data = pd.read_csv('clean_weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
-
+<br>
     Month                 int64
     Day                   int64
     Year                  int64
@@ -1940,7 +1948,7 @@ X = data.drop('Precipitation', axis=1)
 y = data.Precipitation
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 ```
-
+<br>
 Great! Now, let's fit our first model. We'll use *k* = 3.
 
 
@@ -1950,7 +1958,7 @@ from sklearn.neighbors import KNeighborsRegressor
 knn_model = KNeighborsRegressor(n_neighbors=3)
 knn_model.fit(X_train, y_train)
 ```
-
+<br>
 
 
 
@@ -1975,7 +1983,7 @@ print("Average loss:", mean_sum_squares)
 print("KNN loss:", knn_sum_squares)
 print("Variation explained: ", 100 * (1 - knn_sum_squares / mean_sum_squares), "%", sep="")
 ```
-
+<br>
     Average loss: 29.9691113861
     KNN loss: 27.4045222222
     Variation explained: 8.55744146322%
@@ -1987,7 +1995,7 @@ We call the "variation explained" the coefficient of variation, or $r^2$. This q
 ```python
 print("R^2: ", knn_model.score(X_test, y_test))
 ```
-
+<br>
     R^2:  0.0855744146322
 
 
@@ -2005,7 +2013,7 @@ from sklearn.linear_model import LinearRegression
 linear_model = LinearRegression()
 linear_model.fit(X_train, y_train)
 ```
-
+<br>
 
 
 
@@ -2019,7 +2027,7 @@ Yup, KNN wasn't a special case, `sklearn` just makes things that easy. Let's see
 ```python
 print(linear_model.score(X_test, y_test))
 ```
-
+<br>
     0.210857982665
 
 
@@ -2043,7 +2051,7 @@ sns.plt.xlabel('Real Value')
 sns.plt.ylabel('Prediction')
 plt.show()
 ```
-
+<br>
     /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
       warnings.warn(self.msg_depr % (key, alt_key))
 
@@ -2072,7 +2080,7 @@ import pandas as pd
 df = pd.read_csv("clean_weather_data.csv")
 df.head()
 ```
-
+<br>
 
 
 
@@ -2198,7 +2206,7 @@ import numpy as np
 y = np.array(df["Precipitation"] != 0, dtype=int)
 data = df.drop('Precipitation',axis=1)
 ```
-
+<br>
 Wait...so far, we haven't been using day or month data. We could potentially be missing out on some powerful features: maybe there's truth to "April showers bring May flowers." The problem is that month and day are categorical variables, so we can't just use the current encoding. What we have to do is add a new dimension for each possible day and month and zero out all dimensions except for the ones corrsponding to the appropriate month and day. 
 
 So for example, on January 1st, both the January column and the 1st day of the month column will be set to 1. This is called one of k encoding or one hot encoding. We can use sklearn to easily transform our data. First we isolate the Day and Month columns and do one hot encoding using the OneHotEncoder class in the preprocessing module of sklearn.
@@ -2210,14 +2218,14 @@ from sklearn.preprocessing import OneHotEncoder
 one_hot = OneHotEncoder()
 new_day = one_hot.fit_transform(data[["Month","Day"]]).toarray()
 ```
-
+<br>
 Here, ```fit_transform``` does all the work of figuring out what the possible categories are and assigning dimensions to them. Let's take a look to see what's happening. If we look at the first row of the resulting array we should see a 1 in the January column and a 1 on the first day of the month column.
 
 
 ```python
 new_day[0, :]
 ```
-
+<br>
 
 
 
@@ -2234,14 +2242,14 @@ Now we can combine the one hot encoded features with our original data and split
 ```python
 X = np.hstack([new_day, data.values[:, 2:]])
 ```
-
+<br>
 
 ```python
 from sklearn.cross_validation import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 ```
-
+<br>
 Now onto some machine learning techniques. A popular classification algorithm is the Support Vector Machine or SVM. Basically what the SVM does is described in the below image.
 
 <img src=diagram_svm_maximal_margin.gif >
@@ -2258,7 +2266,7 @@ svm = SVC()
 svm.fit(X_train, y_train)
 svm.score(X_test, y_test)
 ```
-
+<br>
 
 
 
@@ -2286,7 +2294,7 @@ parameters = {"kernel": ["linear"],
 search = GridSearchCV(SVC(), param_grid=parameters, refit=True, cv=5)
 search.fit(X_train, y_train)
 ```
-
+<br>
 
 
 
@@ -2317,7 +2325,7 @@ plt.xlabel("Cost")
 plt.ylabel("Validation Error")
 plt.title("Linear SVM 5-Fold Cross Validation Error")
 ```
-
+<br>
     /usr/local/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
       warnings.warn(self.msg_depr % (key, alt_key))
 
@@ -2339,7 +2347,7 @@ We can check what the best parameters are like this.
 ```python
 search.best_params_
 ```
-
+<br>
 
 
 
@@ -2353,7 +2361,7 @@ The cool thing about sklearn is that the ```GridSearchCV``` class keeps the best
 ```python
 search.score(X_test, y_test)
 ```
-
+<br>
 
 
 
@@ -2379,7 +2387,7 @@ params = {"kernel":["rbf"],
 search = GridSearchCV(SVC(), param_grid=params, refit=True, cv=5)
 search.fit(X_train,y_train)
 ```
-
+<br>
 
 
 
@@ -2408,7 +2416,7 @@ plt.colorbar()
 plt.xticks(np.arange(len(params["gamma"])), params["gamma"], rotation=45)
 plt.yticks(np.arange(len(params["C"])),params["C"])
 ```
-
+<br>
 
 
 
@@ -2435,7 +2443,7 @@ Again we can check what the best parameters were, and see how our performance on
 print(search.best_params_)
 print(search.score(X_test, y_test))
 ```
-
+<br>
     {'C': 1.0, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.856435643564
 
@@ -2460,7 +2468,7 @@ data = pd.read_csv('clean_weather_data.csv')
 print(data.dtypes)
 data[:5]
 ```
-
+<br>
     index                 int64
     month                 int64
     day                   int64
@@ -2608,7 +2616,7 @@ Cool, let's start using `bokeh`.
 import bokeh.io, bokeh.plotting, bokeh.models
 bokeh.io.output_notebook()
 ```
-
+<br>
 
 
 
@@ -2706,7 +2714,7 @@ p = bokeh.plotting.figure()
 p.circle(data.mean_temperature, data.dew_point)
 bokeh.plotting.show(p)
 ```
-
+<br>
 
 
 
@@ -2816,7 +2824,7 @@ q.xaxis.axis_label = 'Average Temperature'
 q.yaxis.axis_label = 'Dew Point'
 bokeh.plotting.show(q)
 ```
-
+<br>
 
 
 
@@ -2926,7 +2934,7 @@ hist_plot.xaxis.axis_label = "Average Temperature"
 hist_plot.yaxis.axis_label = "Frequency"
 bokeh.plotting.show(hist_plot)
 ```
-
+<br>
 
 
 
@@ -3044,7 +3052,7 @@ tab2 = bokeh.models.Panel(child = second, title = 'Second Plot')
 tabs = bokeh.models.Tabs(tabs = [tab1, tab2])
 bokeh.plotting.show(tabs)
 ```
-
+<br>
 
 
 
@@ -3175,7 +3183,7 @@ layout = bokeh.io.vform(size, plot)
 
 bokeh.plotting.show(layout)
 ```
-
+<br>
 
 
 
@@ -3300,7 +3308,7 @@ fig.circle('x', 'y', source = tooltip_source)
 
 show(fig)
 ```
-
+<br>
 
 
 
