@@ -147,7 +147,7 @@ $ ipython notebook
 
 a Jupyter notebook window should pop-up. Just create a new Python 3 notebook and you should be good to go.
 
-If you decide to use something other than a Jupyter notebook, note that we used some Jupyter-specific We wrote this curriculum using [Jupyter notebooks](http://jupyter.org/), so there may be some slight finnegaling required (such as omitting `%matplotlib inline` and `bokeh.io.output_notebook()`).
+If you decide to use something other than a Jupyter notebook, note that we used some Jupyter-specific commands. We wrote this curriculum using [Jupyter notebooks](http://jupyter.org/), so there may be some slight finnegaling required (such as omitting `%matplotlib inline` and `bokeh.io.output_notebook()`).
 
 <a href="#top" class="top" id="level1">Top</a>
 # Level 1: Scraping Data
