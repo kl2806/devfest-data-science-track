@@ -140,6 +140,12 @@ $ jupyter notebook
 ```
 <br>
 
+If that doesn't work for some reason, try:
+
+```bash
+$ ipython notebook
+```
+<br>
 
 a Jupyter notebook window should pop-up. Just create a new Python 3 notebook and you should be good to go.
 
